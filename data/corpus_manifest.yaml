@@ -1,0 +1,68 @@
+# Corpus manifest for TechDoc-Helper
+#
+# Single source of truth for WHAT goes into the index (this file) vs HOW it is
+# processed during ingestion. The ingestion loader reads this file,
+# resolves the globs relative to `raw_root`, tags each resulting chunk with the
+# entry's `type` / `language` / `source_repo`, and records the pinned commit so
+# the corpus is reproducible without committing third-party source into git.
+#
+# `type` drives the doc-vs-code chunking fork in Step 3 and later becomes
+# retrieval metadata for filtering (e.g. "search only code" / "search only docs").
+#
+# Scope decisions:
+#   INCLUDE  - the OSS Python docs for langchain / langgraph / deepagents +
+#              the conceptual & reference pages, plus langgraph-core and
+#              langchain-core source. Docs justify dense retrieval; source
+#              justifies BM25 (exact symbols) -> together they justify hybrid.
+#   EXCLUDE  - integrations/*, langsmith/*, javascript/*, code-samples/*,
+#              partner packages, tests. Irrelevant to "how do I use LangGraph"
+#              questions; they would dilute retrieval quality and bloat the index.
+
+# Root under which all globs are resolved.
+raw_root: data/raw
+
+# Patterns removed from every entry's matches after globbing (repo-relative).
+# Keeps JS variants, tests, and build noise out regardless of the include glob.
+global_excludes:
+  - "**/*-javascript.mdx"
+  - "**/*.test.*"
+  - "**/tests/**"
+  - "**/__pycache__/**"
+  - "**/node_modules/**"
+
+repos:
+  docs:
+    remote: https://github.com/langchain-ai/docs.git
+    commit: 7c417783c90d5ee9fb03378eeddaf20082fddfc5
+    entries:
+      - path: docs/src/oss/langchain/**/*.mdx
+        type: doc
+        language: markdown
+      - path: docs/src/oss/langgraph/**/*.mdx
+        type: doc
+        language: markdown
+      - path: docs/src/oss/deepagents/**/*.mdx
+        type: doc
+        language: markdown
+      - path: docs/src/oss/concepts/**/*.mdx
+        type: doc
+        language: markdown
+      - path: docs/src/oss/reference/**/*.mdx
+        type: doc
+        language: markdown
+
+  langgraph:
+    remote: https://github.com/langchain-ai/langgraph.git
+    commit: 55ec2f21939ce7755e6398c11b541de8926245ee
+    entries:
+      - path: langgraph/libs/langgraph/langgraph/**/*.py
+        type: code
+        language: python
+
+  langchain:
+    remote: https://github.com/langchain-ai/langchain.git
+    commit: a8fd0da2b7c3409db9a16d0c7bcd55463967351b
+    entries:
+      - path: langchain/libs/core/langchain_core/**/*.py
+        type: code
+        language: python
