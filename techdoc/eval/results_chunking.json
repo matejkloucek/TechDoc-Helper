@@ -1,0 +1,728 @@
+[
+  {
+    "chunk_size": 500,
+    "chunk_overlap": 75,
+    "n_chunks": 19670,
+    "n_scored": 36,
+    "n_unanchored": 2,
+    "mrr": 0.695,
+    "hit@1": 0.639,
+    "hit@3": 0.722,
+    "hit@5": 0.806,
+    "hit@10": 0.833,
+    "mrr_doc": 0.731,
+    "hit@5_doc": 0.882,
+    "mrr_code": 0.663,
+    "hit@5_code": 0.737,
+    "per_query": [
+      {
+        "qid": "q002",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q003",
+        "type": "doc",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q004",
+        "type": "doc",
+        "rr": 0.14285714285714285,
+        "gold_rank": 7
+      },
+      {
+        "qid": "q005",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q006",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q008",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q009",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q010",
+        "type": "doc",
+        "rr": 0.2,
+        "gold_rank": 5
+      },
+      {
+        "qid": "q011",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q012",
+        "type": "doc",
+        "rr": 0.25,
+        "gold_rank": 4
+      },
+      {
+        "qid": "q013",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q014",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q015",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q016",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q017",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q018",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q019",
+        "type": "code",
+        "rr": 0.06666666666666667,
+        "gold_rank": 15
+      },
+      {
+        "qid": "q020",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q021",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q022",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q023",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q024",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q025",
+        "type": "code",
+        "rr": 0.2,
+        "gold_rank": 5
+      },
+      {
+        "qid": "q026",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q027",
+        "type": "code",
+        "rr": 0.3333333333333333,
+        "gold_rank": 3
+      },
+      {
+        "qid": "q028",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q029",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q030",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q031",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q032",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q033",
+        "type": "doc",
+        "rr": 0.3333333333333333,
+        "gold_rank": 3
+      },
+      {
+        "qid": "q034",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q035",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q036",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q037",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q038",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      }
+    ]
+  },
+  {
+    "chunk_size": 1000,
+    "chunk_overlap": 150,
+    "n_chunks": 9997,
+    "n_scored": 38,
+    "n_unanchored": 0,
+    "mrr": 0.768,
+    "hit@1": 0.684,
+    "hit@3": 0.816,
+    "hit@5": 0.868,
+    "hit@10": 0.895,
+    "mrr_doc": 0.895,
+    "hit@5_doc": 1.0,
+    "mrr_code": 0.641,
+    "hit@5_code": 0.737,
+    "per_query": [
+      {
+        "qid": "q001",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q002",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q003",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q004",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q005",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q006",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q007",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q008",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q009",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q010",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q011",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q012",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q013",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q014",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q015",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q016",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q017",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q018",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q019",
+        "type": "code",
+        "rr": 0.16666666666666666,
+        "gold_rank": 6
+      },
+      {
+        "qid": "q020",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q021",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q022",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q023",
+        "type": "code",
+        "rr": 0.2,
+        "gold_rank": 5
+      },
+      {
+        "qid": "q024",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q025",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q026",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q027",
+        "type": "code",
+        "rr": 0.25,
+        "gold_rank": 4
+      },
+      {
+        "qid": "q028",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q029",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q030",
+        "type": "code",
+        "rr": 0.06666666666666667,
+        "gold_rank": 15
+      },
+      {
+        "qid": "q031",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q032",
+        "type": "code",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q033",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q034",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q035",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q036",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q037",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q038",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2
+      }
+    ]
+  },
+  {
+    "chunk_size": 1500,
+    "chunk_overlap": 225,
+    "n_chunks": 6718,
+    "n_scored": 38,
+    "n_unanchored": 0,
+    "mrr": 0.708,
+    "hit@1": 0.605,
+    "hit@3": 0.763,
+    "hit@5": 0.868,
+    "hit@10": 0.895,
+    "mrr_doc": 0.783,
+    "hit@5_doc": 0.947,
+    "mrr_code": 0.633,
+    "hit@5_code": 0.789,
+    "per_query": [
+      {
+        "qid": "q001",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q002",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q003",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q004",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q005",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q006",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q007",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q008",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q009",
+        "type": "doc",
+        "rr": 0.25,
+        "gold_rank": 4
+      },
+      {
+        "qid": "q010",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q011",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q012",
+        "type": "doc",
+        "rr": 0.25,
+        "gold_rank": 4
+      },
+      {
+        "qid": "q013",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q014",
+        "type": "code",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q015",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q016",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q017",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q018",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q019",
+        "type": "code",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q020",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q021",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q022",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q023",
+        "type": "code",
+        "rr": 0.05,
+        "gold_rank": 20
+      },
+      {
+        "qid": "q024",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q025",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q026",
+        "type": "code",
+        "rr": 0.25,
+        "gold_rank": 4
+      },
+      {
+        "qid": "q027",
+        "type": "code",
+        "rr": 0.3333333333333333,
+        "gold_rank": 3
+      },
+      {
+        "qid": "q028",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null
+      },
+      {
+        "qid": "q029",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q030",
+        "type": "code",
+        "rr": 0.05555555555555555,
+        "gold_rank": 18
+      },
+      {
+        "qid": "q031",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q032",
+        "type": "code",
+        "rr": 0.3333333333333333,
+        "gold_rank": 3
+      },
+      {
+        "qid": "q033",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2
+      },
+      {
+        "qid": "q034",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q035",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q036",
+        "type": "doc",
+        "rr": 0.25,
+        "gold_rank": 4
+      },
+      {
+        "qid": "q037",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1
+      },
+      {
+        "qid": "q038",
+        "type": "doc",
+        "rr": 0.125,
+        "gold_rank": 8
+      }
+    ]
+  }
+]

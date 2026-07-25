@@ -7,6 +7,9 @@ Pipeline:  query
                             ├── RRF fusion  ── top-N fused
                             └── Bedrock Cohere rerank ── top-k
 """
+import re
+from typing import Literal
+
 from langchain_community.retrievers import BM25Retriever
 from langchain_core.documents import Document
 from langchain_aws.document_compressors.rerank import BedrockRerank
@@ -20,6 +23,27 @@ CANDIDATE_N = 20
 RRF_K = 60                    # RRF damping constant (standard default)
 RERANK_MODEL_ARN = "arn:aws:bedrock:us-east-1::foundation-model/cohere.rerank-v3-5:0"
 
+# The three ablation stages the eval harness compares (each a prefix of the next).
+Mode = Literal["dense", "hybrid", "rerank"]
+
+
+_TOKEN_RE = re.compile(r"[A-Za-z_][A-Za-z0-9_]*|\d+")
+
+
+def code_tokenize(text: str) -> list[str]:
+    """Tokenizer for a corpus of prose AND Python source.
+
+    BM25Retriever's default `preprocess_func` is `str.split()`, which is wrong
+    for code: it keeps punctuation attached and does no case folding, so the
+    query token `_dict_int_op` never matches the source token `_dict_int_op(`
+    and `RunInfo` never matches `runinfo`. Splitting on non-identifier chars
+    instead lifted BM25's own recall@20 from 0.474 to 0.921 on the golden set
+    (see DECISIONS.md) -- the single biggest retrieval win in the project.
+
+    Underscores are kept inside tokens so `snake_case` names stay whole.
+    """
+    return _TOKEN_RE.findall(text.lower())
+
 
 def build_bm25(k: int = CANDIDATE_N) -> BM25Retriever:
     """BM25 over the SAME chunks as the dense index (option A: re-chunk on startup).
@@ -29,7 +53,7 @@ def build_bm25(k: int = CANDIDATE_N) -> BM25Retriever:
     the vector store since both derive from the same manifest.
     """
     docs = chunk_records(list(iter_source_files(load_manifest())))
-    retriever = BM25Retriever.from_documents(docs)
+    retriever = BM25Retriever.from_documents(docs, preprocess_func=code_tokenize)
     retriever.k = k  # how many docs BM25 returns
     return retriever
 
@@ -70,10 +94,29 @@ class HybridRetriever:
         )
 
     def retrieve(self, query: str, k: int = 5,
-                candidate_n: int = CANDIDATE_N) -> list[Document]:
-        """Return top-k Documents after hybrid fusion + rerank."""
+                candidate_n: int = CANDIDATE_N,
+                mode: Mode = "rerank") -> list[Document]:
+        """Return top-k Documents. `mode` controls how far down the pipeline we go.
+
+        The three modes are the three ablations the eval harness compares:
+          "dense"  -> dense similarity only (no BM25, no rerank)
+          "hybrid" -> dense + BM25 fused with RRF
+          "rerank" -> full pipeline (default, what the app uses)
+
+        Each mode is a PREFIX of the next, so there is exactly one implementation
+        of the pipeline and the eval measures the real code path.
+        """
+
+        self.bm25.k = candidate_n
         dense_hits = self.dense.similarity_search(query, k=candidate_n)
-        bm25_hits  = self.bm25.invoke(query)   # returns list[Document]
+        if mode == "dense":
+            return dense_hits[:k]
+
+        bm25_hits = self.bm25.invoke(query)   # returns list[Document]
         fused = rrf_fuse([dense_hits, bm25_hits])[:candidate_n]
+        
+        if mode == "hybrid":
+            return fused[:k]
+
         reranked = self.reranker.compress_documents(fused, query=query)
         return list(reranked)[:k]

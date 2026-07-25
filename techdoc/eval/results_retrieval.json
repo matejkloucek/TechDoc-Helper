@@ -1,0 +1,2099 @@
+[
+  {
+    "mode": "dense",
+    "n_queries": 38,
+    "hit@1": 0.711,
+    "recall@1": 0.711,
+    "hit@3": 0.737,
+    "recall@3": 0.737,
+    "hit@5": 0.789,
+    "recall@5": 0.789,
+    "hit@10": 0.816,
+    "recall@10": 0.816,
+    "mrr": 0.736,
+    "per_query": [
+      {
+        "qid": "q001",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/human-in-the-loop.mdx:0",
+          "docs:src/oss/langchain/human-in-the-loop.mdx:3",
+          "docs:src/oss/langchain/guardrails.mdx:11",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:67",
+          "docs:src/oss/langchain/sql-agent.mdx:26",
+          "docs:src/oss/langchain/middleware/built-in.mdx:24",
+          "docs:src/oss/langchain/frontend/human-in-the-loop.mdx:0",
+          "docs:src/oss/deepagents/human-in-the-loop.mdx:1",
+          "docs:src/oss/langchain/sql-agent.mdx:23",
+          "docs:src/oss/langchain/human-in-the-loop.mdx:15"
+        ]
+      },
+      {
+        "qid": "q002",
+        "type": "doc",
+        "rr": 0.3333333333333333,
+        "gold_rank": 3,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/streaming.mdx:39",
+          "docs:src/oss/langchain/guardrails.mdx:31",
+          "docs:src/oss/langchain/streaming.mdx:40",
+          "docs:src/oss/deepagents/streaming.mdx:9",
+          "docs:src/oss/langchain/streaming.mdx:13",
+          "docs:src/oss/langchain/agents.mdx:20",
+          "docs:src/oss/langchain/human-in-the-loop.mdx:36",
+          "docs:src/oss/langchain/streaming.mdx:5",
+          "docs:src/oss/deepagents/streaming.mdx:7",
+          "docs:src/oss/langchain/guardrails.mdx:19"
+        ]
+      },
+      {
+        "qid": "q003",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:35",
+          "docs:src/oss/langchain/multi-agent/router.mdx:4",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:31",
+          "docs:src/oss/langchain/multi-agent/router.mdx:2",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:8",
+          "docs:src/oss/langchain/middleware/overview.mdx:7",
+          "docs:src/oss/langchain/multi-agent/router.mdx:5",
+          "docs:src/oss/langgraph/workflows-agents.mdx:35",
+          "docs:src/oss/langchain/multi-agent/index.mdx:18",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:5"
+        ]
+      },
+      {
+        "qid": "q004",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:30",
+          "docs:src/oss/deepagents/skills.mdx:14",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:27",
+          "docs:src/oss/deepagents/skills.mdx:49",
+          "docs:src/oss/deepagents/skills.mdx:11",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:61",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:23",
+          "docs:src/oss/deepagents/skills.mdx:12",
+          "docs:src/oss/deepagents/skills.mdx:23",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:60"
+        ]
+      },
+      {
+        "qid": "q005",
+        "type": "doc",
+        "rr": 0.25,
+        "gold_rank": 4,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/rag.mdx:17",
+          "docs:src/oss/deepagents/rag.mdx:18",
+          "docs:src/oss/deepagents/code/providers.mdx:4",
+          "docs:src/oss/langchain/quickstart.mdx:2",
+          "docs:src/oss/deepagents/code/config-file.mdx:23",
+          "docs:src/oss/deepagents/code/credentials.mdx:8",
+          "docs:src/oss/deepagents/code/config-file.mdx:6",
+          "docs:src/oss/langchain/errors/MODEL_AUTHENTICATION.mdx:1",
+          "docs:src/oss/langchain/quickstart.mdx:34",
+          "docs:src/oss/langchain/quickstart.mdx:3"
+        ]
+      },
+      {
+        "qid": "q006",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/code/configuration.mdx:3",
+          "docs:src/oss/deepagents/code/configuration.mdx:39",
+          "docs:src/oss/deepagents/code/configuration.mdx:8",
+          "docs:src/oss/deepagents/code/providers.mdx:14",
+          "docs:src/oss/deepagents/code/configuration.mdx:13",
+          "docs:src/oss/deepagents/code/configuration.mdx:40",
+          "docs:src/oss/deepagents/profiles.mdx:6",
+          "docs:src/oss/deepagents/customization.mdx:16",
+          "docs:src/oss/deepagents/overview.mdx:21",
+          "docs:src/oss/deepagents/code/remote-sandboxes.mdx:20"
+        ]
+      },
+      {
+        "qid": "q007",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/knowledge-base.mdx:13",
+          "docs:src/oss/deepagents/rag.mdx:25",
+          "docs:src/oss/langchain/knowledge-base.mdx:14",
+          "langchain:libs/core/langchain_core/document_loaders/base.py:2",
+          "docs:src/oss/deepagents/rag.mdx:26",
+          "docs:src/oss/deepagents/rag.mdx:21",
+          "langchain:libs/core/langchain_core/document_loaders/base.py:3",
+          "langchain:libs/core/langchain_core/messages/utils.py:110",
+          "docs:src/oss/deepagents/rag.mdx:20",
+          "langchain:libs/core/langchain_core/output_parsers/list.py:2"
+        ]
+      },
+      {
+        "qid": "q008",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/event-streaming.mdx:19",
+          "docs:src/oss/langgraph/event-streaming.mdx:9",
+          "docs:src/oss/langgraph/add-memory.mdx:28",
+          "docs:src/oss/langgraph/add-memory.mdx:14",
+          "docs:src/oss/langgraph/event-streaming.mdx:1",
+          "docs:src/oss/langgraph/add-memory.mdx:76",
+          "docs:src/oss/langgraph/use-subgraphs.mdx:76",
+          "langchain:libs/core/langchain_core/runnables/base.py:81",
+          "langgraph:libs/langgraph/langgraph/stream/_types.py:1",
+          "docs:src/oss/langgraph/add-memory.mdx:7"
+        ]
+      },
+      {
+        "qid": "q009",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/retrieval.mdx:3",
+          "docs:src/oss/langchain/retrieval.mdx:12",
+          "docs:src/oss/langchain/retrieval.mdx:24",
+          "docs:src/oss/langchain/retrieval.mdx:0",
+          "docs:src/oss/langchain/knowledge-base.mdx:1",
+          "docs:src/oss/langchain/knowledge-base.mdx:41",
+          "docs:src/oss/langchain/retrieval.mdx:13",
+          "docs:src/oss/langgraph/agentic-rag.mdx:5",
+          "docs:src/oss/deepagents/rag.mdx:36",
+          "langchain:libs/core/langchain_core/documents/__init__.py:0"
+        ]
+      },
+      {
+        "qid": "q010",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/mcp.mdx:37",
+          "docs:src/oss/langchain/mcp.mdx:36",
+          "docs:src/oss/deepagents/code/cli-reference.mdx:17",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:13",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:7",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:0",
+          "docs:src/oss/langchain/mcp.mdx:10",
+          "docs:src/oss/langchain/mcp.mdx:70",
+          "docs:src/oss/langchain/mcp.mdx:9",
+          "docs:src/oss/langchain/mcp.mdx:6"
+        ]
+      },
+      {
+        "qid": "q011",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:13",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:49",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:14",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:61",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:85",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:27",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:68",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:52",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:89",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:15"
+        ]
+      },
+      {
+        "qid": "q012",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/memory.mdx:29",
+          "docs:src/oss/deepagents/memory.mdx:30",
+          "docs:src/oss/deepagents/memory.mdx:40",
+          "langgraph:libs/langgraph/langgraph/graph/message.py:15",
+          "docs:src/oss/deepagents/going-to-production.mdx:14",
+          "docs:src/oss/deepagents/going-to-production.mdx:13",
+          "docs:src/oss/langgraph/use-graph-api.mdx:184",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:61",
+          "docs:src/oss/deepagents/memory.mdx:39",
+          "docs:src/oss/langchain/tools.mdx:20"
+        ]
+      },
+      {
+        "qid": "q013",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:3",
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:5",
+          "docs:src/oss/deepagents/code/configuration.mdx:40",
+          "docs:src/oss/deepagents/code/configuration.mdx:8",
+          "docs:src/oss/deepagents/code/configuration.mdx:1",
+          "docs:src/oss/deepagents/skills.mdx:25",
+          "docs:src/oss/deepagents/code/subagents.mdx:0",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:23",
+          "docs:src/oss/deepagents/backends.mdx:6",
+          "docs:src/oss/deepagents/skills.mdx:50"
+        ]
+      },
+      {
+        "qid": "q014",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:13",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:11",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:46",
+          "langgraph:libs/langgraph/langgraph/stream/stream_channel.py:8",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:48",
+          "docs:src/oss/langchain/event-streaming.mdx:5",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:67",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:44",
+          "langgraph:libs/langgraph/langgraph/pregel/_messages.py:7",
+          "langgraph:libs/langgraph/langgraph/stream/stream_channel.py:11"
+        ]
+      },
+      {
+        "qid": "q015",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/messages/tool.py:19",
+          "langchain:libs/core/langchain_core/messages/tool.py:17",
+          "langchain:libs/core/langchain_core/messages/content.py:13",
+          "langchain:libs/core/langchain_core/messages/tool.py:13",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:1",
+          "langchain:libs/core/langchain_core/output_parsers/openai_tools.py:1",
+          "langchain:libs/core/langchain_core/messages/tool.py:15",
+          "langchain:libs/core/langchain_core/output_parsers/openai_tools.py:4",
+          "langchain:libs/core/langchain_core/messages/ai.py:30",
+          "langchain:libs/core/langchain_core/language_models/_compat_bridge.py:23"
+        ]
+      },
+      {
+        "qid": "q016",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tools/base.py:82",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:13",
+          "langchain:libs/core/langchain_core/tools/base.py:23",
+          "langchain:libs/core/langchain_core/tools/base.py:35",
+          "langchain:libs/core/langchain_core/tools/base.py:83",
+          "langchain:libs/core/langchain_core/runnables/base.py:272",
+          "langchain:libs/core/langchain_core/tools/__init__.py:2",
+          "langgraph:libs/langgraph/langgraph/_internal/_fields.py:6",
+          "langchain:libs/core/langchain_core/tools/base.py:48",
+          "langchain:libs/core/langchain_core/runnables/base.py:285"
+        ]
+      },
+      {
+        "qid": "q017",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/prompts/base.py:2",
+          "langchain:libs/core/langchain_core/prompts/chat.py:42",
+          "langchain:libs/core/langchain_core/prompts/chat.py:44",
+          "langchain:libs/core/langchain_core/prompts/chat.py:49",
+          "langchain:libs/core/langchain_core/prompts/chat.py:7",
+          "langchain:libs/core/langchain_core/prompts/chat.py:50",
+          "langchain:libs/core/langchain_core/prompts/chat.py:8",
+          "langchain:libs/core/langchain_core/prompts/chat.py:32",
+          "langchain:libs/core/langchain_core/prompts/prompt.py:6",
+          "langchain:libs/core/langchain_core/prompts/string.py:0"
+        ]
+      },
+      {
+        "qid": "q018",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:3",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:21",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:4",
+          "langchain:libs/core/langchain_core/outputs/run_info.py:0",
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:26",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:2",
+          "langchain:libs/core/langchain_core/tracers/langchain.py:7",
+          "langchain:libs/core/langchain_core/callbacks/base.py:4",
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:37",
+          "langchain:libs/core/langchain_core/tracers/core.py:9"
+        ]
+      },
+      {
+        "qid": "q019",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/types.py:34",
+          "docs:src/oss/langgraph/graph-api.mdx:79",
+          "langgraph:libs/langgraph/langgraph/types.py:32",
+          "docs:src/oss/langgraph/graph-api.mdx:73",
+          "docs:src/oss/langgraph/graph-api.mdx:78",
+          "docs:src/oss/langgraph/graph-api.mdx:87",
+          "langgraph:libs/langgraph/langgraph/graph/state.py:51",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:29",
+          "docs:src/oss/langgraph/use-graph-api.mdx:135",
+          "docs:src/oss/langgraph/graph-api.mdx:81"
+        ]
+      },
+      {
+        "qid": "q020",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/pregel/debug.py:12",
+          "docs:src/oss/langgraph/checkpointers.mdx:9",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:62",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:56",
+          "langgraph:libs/langgraph/langgraph/pregel/_loop.py:3",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:4",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:109",
+          "docs:src/oss/langgraph/streaming.mdx:74",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:63",
+          "langgraph:libs/langgraph/langgraph/pregel/debug.py:15"
+        ]
+      },
+      {
+        "qid": "q021",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:44",
+          "langchain:libs/core/langchain_core/messages/content.py:57",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:54",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:40",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:46",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:28",
+          "langchain:libs/core/langchain_core/language_models/_compat_bridge.py:10",
+          "langchain:libs/core/langchain_core/messages/block_translators/bedrock_converse.py:11",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:41",
+          "langchain:libs/core/langchain_core/messages/content.py:20"
+        ]
+      },
+      {
+        "qid": "q022",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/utils/usage.py:1",
+          "langchain:libs/core/langchain_core/_api/__init__.py:0",
+          "langchain:libs/core/langchain_core/utils/function_calling.py:30",
+          "langchain:libs/core/langchain_core/runnables/base.py:1",
+          "langchain:libs/core/langchain_core/utils/usage.py:2",
+          "langchain:libs/core/langchain_core/load/mapping.py:19",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:97",
+          "langchain:libs/core/langchain_core/language_models/base.py:11",
+          "langchain:libs/core/langchain_core/language_models/model_profile.py:4",
+          "langchain:libs/core/langchain_core/load/mapping.py:21"
+        ]
+      },
+      {
+        "qid": "q023",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tracers/base.py:0",
+          "langchain:libs/core/langchain_core/tracers/langchain.py:0",
+          "langchain:libs/core/langchain_core/runnables/base.py:2",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:0",
+          "langchain:libs/core/langchain_core/tracers/__init__.py:0",
+          "langchain:libs/core/langchain_core/runnables/config.py:9",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:7",
+          "langchain:libs/core/langchain_core/tracers/root_listeners.py:0",
+          "langchain:libs/core/langchain_core/tracers/langchain.py:6",
+          "langchain:libs/core/langchain_core/tracers/context.py:0"
+        ]
+      },
+      {
+        "qid": "q024",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/going-to-production.mdx:14",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:6",
+          "docs:src/oss/deepagents/going-to-production.mdx:13",
+          "docs:src/oss/deepagents/going-to-production.mdx:12",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:4",
+          "docs:src/oss/langgraph/deploy.mdx:8",
+          "docs:src/oss/langgraph/local-server.mdx:8",
+          "docs:src/oss/deepagents/memory.mdx:30",
+          "langgraph:libs/langgraph/langgraph/pregel/_remote_run_stream.py:0",
+          "langgraph:libs/langgraph/langgraph/pregel/_retry.py:1"
+        ]
+      },
+      {
+        "qid": "q025",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/messages/utils.py:32",
+          "docs:src/oss/langchain/frontend/tool-calling.mdx:1",
+          "langchain:libs/core/langchain_core/messages/ai.py:19",
+          "docs:src/oss/langchain/messages.mdx:22",
+          "docs:src/oss/langchain/structured-output.mdx:24",
+          "langchain:libs/core/langchain_core/messages/base.py:15",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:3",
+          "langchain:libs/core/langchain_core/messages/utils.py:33",
+          "langchain:libs/core/langchain_core/utils/function_calling.py:30",
+          "langchain:libs/core/langchain_core/messages/utils.py:24"
+        ]
+      },
+      {
+        "qid": "q026",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/utils/pydantic.py:10",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:12",
+          "langchain:libs/core/langchain_core/tools/base.py:1",
+          "langgraph:libs/langgraph/langgraph/_internal/_pydantic.py:9",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:27",
+          "langchain:libs/core/langchain_core/messages/ai.py:1",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:15",
+          "langchain:libs/core/langchain_core/prompts/base.py:1",
+          "langchain:libs/core/langchain_core/runnables/base.py:3",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:143"
+        ]
+      },
+      {
+        "qid": "q027",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/functional-api.mdx:56",
+          "langgraph:libs/langgraph/langgraph/types.py:40",
+          "docs:src/oss/langgraph/interrupts.mdx:60",
+          "docs:src/oss/langgraph/interrupts.mdx:4",
+          "docs:src/oss/langgraph/interrupts.mdx:8",
+          "docs:src/oss/langgraph/interrupts.mdx:55",
+          "docs:src/oss/langchain/human-in-the-loop.mdx:15",
+          "langgraph:libs/langgraph/langgraph/pregel/_loop.py:49",
+          "docs:src/oss/langchain/frontend/human-in-the-loop.mdx:1",
+          "docs:src/oss/langgraph/backward-compatibility.mdx:10"
+        ]
+      },
+      {
+        "qid": "q028",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/use-graph-api.mdx:2",
+          "docs:src/oss/langgraph/use-graph-api.mdx:36",
+          "docs:src/oss/langgraph/graph-api.mdx:51",
+          "docs:src/oss/langgraph/graph-api.mdx:11",
+          "docs:src/oss/langgraph/use-graph-api.mdx:37",
+          "docs:src/oss/langgraph/use-graph-api.mdx:40",
+          "docs:src/oss/langgraph/graph-api.mdx:12",
+          "docs:src/oss/langgraph/use-graph-api.mdx:16",
+          "docs:src/oss/langchain/multi-agent/custom-workflow.mdx:7",
+          "langgraph:libs/langgraph/langgraph/graph/state.py:4"
+        ]
+      },
+      {
+        "qid": "q029",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:5",
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:0",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:3",
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:2",
+          "langchain:libs/core/langchain_core/callbacks/usage.py:2",
+          "langchain:libs/core/langchain_core/outputs/__init__.py:0",
+          "langchain:libs/core/langchain_core/tracers/langchain.py:19",
+          "langchain:libs/core/langchain_core/runnables/__init__.py:0",
+          "langchain:libs/core/langchain_core/language_models/llms.py:1",
+          "langchain:libs/core/langchain_core/load/mapping.py:13"
+        ]
+      },
+      {
+        "qid": "q030",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/callbacks/manager.py:36",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:59",
+          "langchain:libs/core/langchain_core/runnables/base.py:81",
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:45",
+          "langchain:libs/core/langchain_core/runnables/base.py:75",
+          "langchain:libs/core/langchain_core/runnables/base.py:58",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:173",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:39",
+          "langchain:libs/core/langchain_core/runnables/base.py:73",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:46"
+        ]
+      },
+      {
+        "qid": "q031",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/callbacks/manager.py:13",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:66",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:15",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:70",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:23",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:55",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:50",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:21",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:14",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:43"
+        ]
+      },
+      {
+        "qid": "q032",
+        "type": "code",
+        "rr": 0.14285714285714285,
+        "gold_rank": 7,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/prompts/loading.py:11",
+          "langchain:libs/core/langchain_core/prompts/loading.py:13",
+          "langchain:libs/core/langchain_core/prompts/prompt.py:1",
+          "langchain:libs/core/langchain_core/prompts/loading.py:0",
+          "langchain:libs/core/langchain_core/prompts/loading.py:14",
+          "langchain:libs/core/langchain_core/prompts/few_shot_with_templates.py:11",
+          "langchain:libs/core/langchain_core/prompts/loading.py:15",
+          "langchain:libs/core/langchain_core/prompts/few_shot.py:11",
+          "langchain:libs/core/langchain_core/prompts/prompt.py:10",
+          "langchain:libs/core/langchain_core/prompts/few_shot_with_templates.py:2"
+        ]
+      },
+      {
+        "qid": "q033",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/fault-tolerance.mdx:25",
+          "docs:src/oss/langgraph/use-graph-api.mdx:83",
+          "docs:src/oss/langgraph/use-functional-api.mdx:32",
+          "docs:src/oss/langgraph/use-graph-api.mdx:84",
+          "langgraph:libs/langgraph/langgraph/graph/state.py:36",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:19",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:1",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:26",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:17",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:7"
+        ]
+      },
+      {
+        "qid": "q034",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:31",
+          "docs:src/oss/deepagents/profiles.mdx:8",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:33",
+          "docs:src/oss/deepagents/profiles.mdx:9",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:30",
+          "docs:src/oss/deepagents/profiles.mdx:6",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:29",
+          "docs:src/oss/deepagents/customization.mdx:22",
+          "docs:src/oss/deepagents/subagents.mdx:15",
+          "docs:src/oss/deepagents/subagents.mdx:21"
+        ]
+      },
+      {
+        "qid": "q035",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/rubric.mdx:16",
+          "docs:src/oss/deepagents/rubric.mdx:1",
+          "docs:src/oss/langchain/middleware/built-in.mdx:141",
+          "docs:src/oss/deepagents/rubric.mdx:2",
+          "docs:src/oss/deepagents/rubric.mdx:6",
+          "docs:src/oss/deepagents/code/overview.mdx:3",
+          "docs:src/oss/deepagents/rubric.mdx:18",
+          "docs:src/oss/deepagents/code/goals-and-rubrics.mdx:1",
+          "docs:src/oss/deepagents/memory.mdx:6",
+          "docs:src/oss/deepagents/going-to-production.mdx:29"
+        ]
+      },
+      {
+        "qid": "q036",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/models.mdx:128",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:22",
+          "docs:src/oss/langchain/models.mdx:129",
+          "docs:src/oss/deepagents/models.mdx:9",
+          "docs:src/oss/langchain/context-engineering.mdx:52",
+          "docs:src/oss/deepagents/models.mdx:7",
+          "docs:src/oss/langgraph/add-memory.mdx:68",
+          "docs:src/oss/langgraph/add-memory.mdx:50",
+          "docs:src/oss/langgraph/use-graph-api.mdx:68",
+          "docs:src/oss/langchain/models.mdx:87"
+        ]
+      },
+      {
+        "qid": "q037",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/context-engineering.mdx:60",
+          "docs:src/oss/langchain/context-engineering.mdx:59",
+          "docs:src/oss/deepagents/models.mdx:9",
+          "docs:src/oss/langchain/middleware/custom.mdx:64",
+          "docs:src/oss/langchain/middleware/custom.mdx:25",
+          "docs:src/oss/langchain/context-engineering.mdx:61",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:28",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:62",
+          "docs:src/oss/langchain/middleware/custom.mdx:19",
+          "docs:src/oss/langchain/models.mdx:134"
+        ]
+      },
+      {
+        "qid": "q038",
+        "type": "doc",
+        "rr": 0.25,
+        "gold_rank": 4,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/config.py:0",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:120",
+          "docs:src/oss/langchain/models.mdx:123",
+          "docs:src/oss/langgraph/streaming.mdx:30",
+          "langchain:libs/core/langchain_core/runnables/base.py:108",
+          "langchain:libs/core/langchain_core/runnables/passthrough.py:13",
+          "docs:src/oss/langgraph/streaming.mdx:100",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:65",
+          "docs:src/oss/langgraph/use-graph-api.mdx:82",
+          "langchain:libs/core/langchain_core/tools/simple.py:4"
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "hybrid",
+    "n_queries": 38,
+    "hit@1": 0.684,
+    "recall@1": 0.684,
+    "hit@3": 0.816,
+    "recall@3": 0.816,
+    "hit@5": 0.895,
+    "recall@5": 0.895,
+    "hit@10": 0.895,
+    "recall@10": 0.895,
+    "mrr": 0.767,
+    "per_query": [
+      {
+        "qid": "q001",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/human-in-the-loop.mdx:0",
+          "docs:src/oss/langchain/sql-agent.mdx:26",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:67",
+          "docs:src/oss/langchain/human-in-the-loop.mdx:3",
+          "docs:src/oss/langchain/frontend/human-in-the-loop.mdx:0",
+          "docs:src/oss/langchain/sql-agent.mdx:23",
+          "docs:src/oss/langchain/middleware/built-in.mdx:24",
+          "docs:src/oss/langchain/frontend/overview.mdx:13",
+          "docs:src/oss/langgraph/sql-agent.mdx:22",
+          "docs:src/oss/deepagents/human-in-the-loop.mdx:1"
+        ]
+      },
+      {
+        "qid": "q002",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/streaming.mdx:40",
+          "docs:src/oss/langchain/guardrails.mdx:31",
+          "docs:src/oss/langchain/streaming.mdx:39",
+          "docs:src/oss/langchain/streaming.mdx:13",
+          "docs:src/oss/deepagents/streaming.mdx:9",
+          "docs:src/oss/langchain/guardrails.mdx:34",
+          "docs:src/oss/langchain/middleware/custom.mdx:15",
+          "docs:src/oss/langchain/streaming.mdx:4",
+          "docs:src/oss/langchain/guardrails.mdx:33",
+          "docs:src/oss/langchain/guardrails.mdx:36"
+        ]
+      },
+      {
+        "qid": "q003",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:35",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:31",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:5",
+          "docs:src/oss/langchain/multi-agent/router.mdx:4",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:19",
+          "docs:src/oss/langchain/multi-agent/router.mdx:5",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:36",
+          "docs:src/oss/langchain/multi-agent/index.mdx:18",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:48",
+          "docs:src/oss/langchain/multi-agent/router.mdx:2"
+        ]
+      },
+      {
+        "qid": "q004",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:30",
+          "docs:src/oss/deepagents/skills.mdx:13",
+          "docs:src/oss/deepagents/skills.mdx:14",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:23",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:60",
+          "docs:src/oss/deepagents/skills.mdx:10",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:27",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:71",
+          "docs:src/oss/deepagents/skills.mdx:49",
+          "docs:src/oss/deepagents/skills.mdx:48"
+        ]
+      },
+      {
+        "qid": "q005",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/quickstart.mdx:2",
+          "docs:src/oss/deepagents/rag.mdx:17",
+          "docs:src/oss/deepagents/code/providers.mdx:4",
+          "docs:src/oss/deepagents/rag.mdx:18",
+          "docs:src/oss/deepagents/code/config-file.mdx:23",
+          "docs:src/oss/deepagents/code/config-file.mdx:6",
+          "docs:src/oss/langchain/quickstart.mdx:34",
+          "docs:src/oss/langchain/errors/MODEL_AUTHENTICATION.mdx:1",
+          "docs:src/oss/concepts/providers-and-models.mdx:0",
+          "docs:src/oss/deepagents/code/credentials.mdx:7"
+        ]
+      },
+      {
+        "qid": "q006",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/code/configuration.mdx:3",
+          "docs:src/oss/deepagents/code/configuration.mdx:39",
+          "docs:src/oss/deepagents/code/configuration.mdx:8",
+          "docs:src/oss/deepagents/code/configuration.mdx:13",
+          "docs:src/oss/deepagents/code/configuration.mdx:40",
+          "docs:src/oss/deepagents/code/credentials.mdx:13",
+          "docs:src/oss/deepagents/code/config-file.mdx:16",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:6",
+          "docs:src/oss/deepagents/code/configuration.mdx:1",
+          "docs:src/oss/deepagents/code/providers.mdx:14"
+        ]
+      },
+      {
+        "qid": "q007",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/knowledge-base.mdx:13",
+          "docs:src/oss/deepagents/rag.mdx:25",
+          "langchain:libs/core/langchain_core/document_loaders/base.py:2",
+          "docs:src/oss/langchain/knowledge-base.mdx:14",
+          "docs:src/oss/deepagents/rag.mdx:21",
+          "langchain:libs/core/langchain_core/indexing/api.py:18",
+          "langchain:libs/core/langchain_core/indexing/api.py:41",
+          "docs:src/oss/deepagents/rag.mdx:26",
+          "docs:src/oss/langgraph/agentic-rag.mdx:8",
+          "langchain:libs/core/langchain_core/document_loaders/base.py:3"
+        ]
+      },
+      {
+        "qid": "q008",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/event-streaming.mdx:19",
+          "docs:src/oss/langgraph/use-subgraphs.mdx:76",
+          "docs:src/oss/langgraph/event-streaming.mdx:9",
+          "docs:src/oss/langgraph/add-memory.mdx:28",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:202",
+          "docs:src/oss/langgraph/add-memory.mdx:14",
+          "langgraph:libs/langgraph/langgraph/stream/transformers.py:9",
+          "docs:src/oss/langgraph/event-streaming.mdx:1",
+          "langgraph:libs/langgraph/langgraph/stream/__init__.py:0",
+          "docs:src/oss/langgraph/add-memory.mdx:76"
+        ]
+      },
+      {
+        "qid": "q009",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/retrieval.mdx:12",
+          "docs:src/oss/langchain/retrieval.mdx:3",
+          "docs:src/oss/langchain/retrieval.mdx:24",
+          "docs:src/oss/langchain/retrieval.mdx:0",
+          "docs:src/oss/langchain/knowledge-base.mdx:41",
+          "docs:src/oss/langchain/retrieval.mdx:13",
+          "docs:src/oss/langchain/knowledge-base.mdx:1",
+          "langchain:libs/core/langchain_core/documents/__init__.py:0",
+          "docs:src/oss/langgraph/agentic-rag.mdx:5",
+          "docs:src/oss/langchain/retrieval.mdx:8"
+        ]
+      },
+      {
+        "qid": "q010",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/mcp.mdx:37",
+          "docs:src/oss/langchain/mcp.mdx:36",
+          "docs:src/oss/deepagents/code/cli-reference.mdx:17",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:0",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:13",
+          "docs:src/oss/langchain/mcp.mdx:34",
+          "docs:src/oss/langchain/mcp.mdx:25",
+          "docs:src/oss/langchain/mcp.mdx:38",
+          "docs:src/oss/deepagents/skills.mdx:10",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:7"
+        ]
+      },
+      {
+        "qid": "q011",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:13",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:61",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:49",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:27",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:14",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:52",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:29",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:85",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:87",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:89"
+        ]
+      },
+      {
+        "qid": "q012",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/memory.mdx:29",
+          "docs:src/oss/deepagents/memory.mdx:30",
+          "docs:src/oss/deepagents/memory.mdx:40",
+          "docs:src/oss/deepagents/going-to-production.mdx:14",
+          "docs:src/oss/langchain/tools.mdx:20",
+          "docs:src/oss/langchain/tools.mdx:35",
+          "docs:src/oss/deepagents/memory.mdx:31",
+          "langgraph:libs/langgraph/langgraph/graph/message.py:15",
+          "docs:src/oss/deepagents/going-to-production.mdx:19",
+          "docs:src/oss/deepagents/going-to-production.mdx:13"
+        ]
+      },
+      {
+        "qid": "q013",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:3",
+          "docs:src/oss/deepagents/code/configuration.mdx:40",
+          "docs:src/oss/deepagents/code/subagents.mdx:0",
+          "docs:src/oss/deepagents/code/configuration.mdx:8",
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:5",
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:4",
+          "docs:src/oss/deepagents/content-builder.mdx:6",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:24",
+          "docs:src/oss/deepagents/code/configuration.mdx:34",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:6"
+        ]
+      },
+      {
+        "qid": "q014",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:13",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:11",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:23",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:46",
+          "docs:src/oss/langgraph/event-streaming.mdx:24",
+          "langgraph:libs/langgraph/langgraph/stream/stream_channel.py:8",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:40",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:48",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:22",
+          "docs:src/oss/langchain/event-streaming.mdx:5"
+        ]
+      },
+      {
+        "qid": "q015",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/messages/tool.py:19",
+          "langchain:libs/core/langchain_core/messages/tool.py:13",
+          "langchain:libs/core/langchain_core/messages/tool.py:17",
+          "langchain:libs/core/langchain_core/output_parsers/openai_tools.py:1",
+          "langchain:libs/core/langchain_core/messages/tool.py:15",
+          "langchain:libs/core/langchain_core/messages/content.py:13",
+          "langchain:libs/core/langchain_core/messages/ai.py:1",
+          "langchain:libs/core/langchain_core/messages/utils.py:29",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:1",
+          "langchain:libs/core/langchain_core/load/dump.py:0"
+        ]
+      },
+      {
+        "qid": "q016",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tools/base.py:82",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:13",
+          "docs:src/oss/langgraph/stores.mdx:13",
+          "langchain:libs/core/langchain_core/tools/base.py:23",
+          "docs:src/oss/deepagents/subagents.mdx:45",
+          "langchain:libs/core/langchain_core/tools/base.py:35",
+          "docs:src/oss/langgraph/graph-api.mdx:19",
+          "langchain:libs/core/langchain_core/tools/base.py:83",
+          "docs:src/oss/deepagents/memory.mdx:28",
+          "langchain:libs/core/langchain_core/runnables/base.py:272"
+        ]
+      },
+      {
+        "qid": "q017",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/prompts/base.py:2",
+          "langchain:libs/core/langchain_core/prompts/chat.py:42",
+          "langchain:libs/core/langchain_core/utils/formatting.py:3",
+          "langchain:libs/core/langchain_core/prompts/string.py:3",
+          "langchain:libs/core/langchain_core/prompts/chat.py:44",
+          "langchain:libs/core/langchain_core/prompts/chat.py:49",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:8",
+          "langchain:libs/core/langchain_core/prompts/chat.py:7",
+          "docs:src/oss/deepagents/subagents.mdx:15",
+          "langchain:libs/core/langchain_core/prompts/chat.py:50"
+        ]
+      },
+      {
+        "qid": "q018",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:3",
+          "langchain:libs/core/langchain_core/outputs/run_info.py:0",
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:16",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:21",
+          "docs:src/oss/langchain/middleware/custom.mdx:43",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:4",
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:2",
+          "langchain:libs/core/langchain_core/messages/content.py:1",
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:26",
+          "langchain:libs/core/langchain_core/tracers/langchain.py:7"
+        ]
+      },
+      {
+        "qid": "q019",
+        "type": "code",
+        "rr": 0.2,
+        "gold_rank": 5,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/types.py:34",
+          "docs:src/oss/langgraph/use-graph-api.mdx:135",
+          "docs:src/oss/langgraph/graph-api.mdx:79",
+          "langgraph:libs/langgraph/langgraph/types.py:32",
+          "langgraph:libs/langgraph/langgraph/types.py:33",
+          "docs:src/oss/langgraph/graph-api.mdx:73",
+          "docs:src/oss/langgraph/graph-api.mdx:78",
+          "docs:src/oss/langgraph/use-graph-api.mdx:129",
+          "docs:src/oss/langgraph/use-graph-api.mdx:142",
+          "docs:src/oss/langgraph/use-graph-api.mdx:138"
+        ]
+      },
+      {
+        "qid": "q020",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/pregel/debug.py:12",
+          "docs:src/oss/langgraph/checkpointers.mdx:9",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:57",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:5",
+          "docs:src/oss/langgraph/checkpointers.mdx:3",
+          "docs:src/oss/langgraph/event-streaming.mdx:33",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:62",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:56",
+          "langgraph:libs/langgraph/langgraph/pregel/_algo.py:11",
+          "langgraph:libs/langgraph/langgraph/pregel/_loop.py:3"
+        ]
+      },
+      {
+        "qid": "q021",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:44",
+          "langchain:libs/core/langchain_core/messages/content.py:57",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:46",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:40",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:54",
+          "langchain:libs/core/langchain_core/messages/content.py:20",
+          "langchain:libs/core/langchain_core/messages/block_translators/bedrock_converse.py:11",
+          "langchain:libs/core/langchain_core/language_models/_compat_bridge.py:11",
+          "langchain:libs/core/langchain_core/messages/content.py:54",
+          "langchain:libs/core/langchain_core/messages/block_translators/anthropic.py:12"
+        ]
+      },
+      {
+        "qid": "q022",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/utils/usage.py:1",
+          "langchain:libs/core/langchain_core/utils/usage.py:2",
+          "langchain:libs/core/langchain_core/_api/__init__.py:0",
+          "langchain:libs/core/langchain_core/utils/function_calling.py:30",
+          "langchain:libs/core/langchain_core/language_models/_compat_bridge.py:4",
+          "langchain:libs/core/langchain_core/runnables/base.py:1",
+          "docs:src/oss/langgraph/graph-api.mdx:19",
+          "langchain:libs/core/langchain_core/load/mapping.py:19",
+          "docs:src/oss/langgraph/graph-api.mdx:22",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:97"
+        ]
+      },
+      {
+        "qid": "q023",
+        "type": "code",
+        "rr": 0.2,
+        "gold_rank": 5,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tracers/base.py:20",
+          "langchain:libs/core/langchain_core/tracers/base.py:0",
+          "langchain:libs/core/langchain_core/tracers/root_listeners.py:3",
+          "langchain:libs/core/langchain_core/tracers/langchain.py:0",
+          "langchain:libs/core/langchain_core/tracers/base.py:35",
+          "langchain:libs/core/langchain_core/runnables/base.py:2",
+          "langchain:libs/core/langchain_core/tracers/root_listeners.py:1",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:0",
+          "langchain:libs/core/langchain_core/tracers/core.py:1",
+          "langchain:libs/core/langchain_core/tracers/__init__.py:0"
+        ]
+      },
+      {
+        "qid": "q024",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/local-server.mdx:8",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:4",
+          "docs:src/oss/deepagents/going-to-production.mdx:14",
+          "docs:src/oss/deepagents/code/config-file.mdx:31",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:6",
+          "docs:src/oss/langgraph/pregel.mdx:12",
+          "docs:src/oss/deepagents/going-to-production.mdx:13",
+          "docs:src/oss/langgraph/interrupts.mdx:5",
+          "docs:src/oss/deepagents/going-to-production.mdx:12",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:27"
+        ]
+      },
+      {
+        "qid": "q025",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/frontend/tool-calling.mdx:1",
+          "langchain:libs/core/langchain_core/messages/ai.py:19",
+          "docs:src/oss/langchain/frontend/tool-calling.mdx:6",
+          "langchain:libs/core/langchain_core/messages/content.py:55",
+          "langchain:libs/core/langchain_core/messages/utils.py:32",
+          "langchain:libs/core/langchain_core/messages/tool.py:16",
+          "langchain:libs/core/langchain_core/output_parsers/openai_tools.py:3",
+          "docs:src/oss/langchain/messages.mdx:22",
+          "langchain:libs/core/langchain_core/messages/tool.py:15",
+          "docs:src/oss/langchain/structured-output.mdx:24"
+        ]
+      },
+      {
+        "qid": "q026",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/utils/pydantic.py:10",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:12",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:15",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:142",
+          "langchain:libs/core/langchain_core/tools/base.py:31",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:14",
+          "langchain:libs/core/langchain_core/tools/base.py:1",
+          "langchain:libs/core/langchain_core/messages/content.py:3",
+          "langgraph:libs/langgraph/langgraph/_internal/_pydantic.py:9",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:27"
+        ]
+      },
+      {
+        "qid": "q027",
+        "type": "code",
+        "rr": 0.25,
+        "gold_rank": 4,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/functional-api.mdx:56",
+          "langgraph:libs/langgraph/langgraph/pregel/_loop.py:49",
+          "docs:src/oss/langgraph/interrupts.mdx:8",
+          "langgraph:libs/langgraph/langgraph/pregel/_loop.py:43",
+          "docs:src/oss/langgraph/interrupts.mdx:4",
+          "docs:src/oss/langgraph/graph-api.mdx:94",
+          "docs:src/oss/langgraph/interrupts.mdx:12",
+          "langgraph:libs/langgraph/langgraph/types.py:40",
+          "langgraph:libs/langgraph/langgraph/types.py:36",
+          "docs:src/oss/langgraph/interrupts.mdx:60"
+        ]
+      },
+      {
+        "qid": "q028",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/use-graph-api.mdx:2",
+          "docs:src/oss/langgraph/use-graph-api.mdx:37",
+          "docs:src/oss/langgraph/graph-api.mdx:11",
+          "docs:src/oss/langgraph/use-graph-api.mdx:40",
+          "docs:src/oss/langgraph/use-graph-api.mdx:36",
+          "docs:src/oss/langgraph/graph-api.mdx:51",
+          "docs:src/oss/langgraph/streaming.mdx:95",
+          "langchain:libs/core/langchain_core/runnables/graph.py:7",
+          "langchain:libs/core/langchain_core/tools/base.py:34",
+          "docs:src/oss/langgraph/streaming.mdx:99"
+        ]
+      },
+      {
+        "qid": "q029",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:5",
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:2",
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:0",
+          "langchain:libs/core/langchain_core/rate_limiters.py:5",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:3",
+          "docs:src/oss/deepagents/memory.mdx:26",
+          "langchain:libs/core/langchain_core/rate_limiters.py:4",
+          "langchain:libs/core/langchain_core/callbacks/usage.py:2",
+          "docs:src/oss/langchain/test/evals.mdx:17",
+          "langchain:libs/core/langchain_core/outputs/__init__.py:0"
+        ]
+      },
+      {
+        "qid": "q030",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/runnables/base.py:81",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:36",
+          "langchain:libs/core/langchain_core/runnables/base.py:73",
+          "langgraph:libs/langgraph/langgraph/stream/transformers.py:9",
+          "langchain:libs/core/langchain_core/runnables/base.py:76",
+          "docs:src/oss/langgraph/event-streaming.mdx:19",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:207",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:32",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:59",
+          "langgraph:libs/langgraph/langgraph/stream/transformers.py:10"
+        ]
+      },
+      {
+        "qid": "q031",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/callbacks/manager.py:13",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:14",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:23",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:21",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:66",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:15",
+          "docs:src/oss/langgraph/graph-api.mdx:19",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:70",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:24",
+          "docs:src/oss/langchain/models.mdx:42"
+        ]
+      },
+      {
+        "qid": "q032",
+        "type": "code",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/prompts/loading.py:11",
+          "langchain:libs/core/langchain_core/prompts/loading.py:15",
+          "langchain:libs/core/langchain_core/prompts/prompt.py:10",
+          "langchain:libs/core/langchain_core/prompts/loading.py:14",
+          "langchain:libs/core/langchain_core/prompts/loading.py:13",
+          "docs:src/oss/deepagents/skills.mdx:10",
+          "langchain:libs/core/langchain_core/prompts/prompt.py:1",
+          "langchain:libs/core/langchain_core/prompts/loading.py:0",
+          "langchain:libs/core/langchain_core/prompts/chat.py:51",
+          "langchain:libs/core/langchain_core/prompts/few_shot_with_templates.py:11"
+        ]
+      },
+      {
+        "qid": "q033",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/use-graph-api.mdx:83",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:25",
+          "docs:src/oss/langgraph/use-functional-api.mdx:32",
+          "docs:src/oss/langgraph/use-graph-api.mdx:84",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:19",
+          "langgraph:libs/langgraph/langgraph/graph/state.py:36",
+          "langgraph:libs/langgraph/langgraph/errors.py:8",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:26",
+          "docs:src/oss/langgraph/use-graph-api.mdx:82",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:1"
+        ]
+      },
+      {
+        "qid": "q034",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:31",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:22",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:29",
+          "docs:src/oss/deepagents/customization.mdx:15",
+          "docs:src/oss/deepagents/context-engineering.mdx:18",
+          "docs:src/oss/deepagents/customization.mdx:25",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:23",
+          "docs:src/oss/deepagents/profiles.mdx:8",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:26",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:33"
+        ]
+      },
+      {
+        "qid": "q035",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/rubric.mdx:16",
+          "docs:src/oss/deepagents/rubric.mdx:1",
+          "docs:src/oss/deepagents/code/goals-and-rubrics.mdx:1",
+          "docs:src/oss/deepagents/rubric.mdx:18",
+          "docs:src/oss/langchain/middleware/built-in.mdx:141",
+          "docs:src/oss/deepagents/rubric.mdx:17",
+          "docs:src/oss/langchain/guardrails.mdx:33",
+          "docs:src/oss/langchain/guardrails.mdx:36",
+          "docs:src/oss/deepagents/rubric.mdx:2",
+          "docs:src/oss/langchain/guardrails.mdx:38"
+        ]
+      },
+      {
+        "qid": "q036",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:22",
+          "docs:src/oss/langchain/models.mdx:128",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:62",
+          "docs:src/oss/langchain/models.mdx:129",
+          "docs:src/oss/deepagents/memory.mdx:22",
+          "docs:src/oss/deepagents/models.mdx:9",
+          "docs:src/oss/langgraph/agentic-rag.mdx:13",
+          "docs:src/oss/langchain/context-engineering.mdx:52",
+          "docs:src/oss/deepagents/code/providers.mdx:13",
+          "docs:src/oss/deepagents/models.mdx:7"
+        ]
+      },
+      {
+        "qid": "q037",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/context-engineering.mdx:60",
+          "docs:src/oss/langchain/context-engineering.mdx:59",
+          "docs:src/oss/deepagents/models.mdx:9",
+          "docs:src/oss/langchain/context-engineering.mdx:61",
+          "docs:src/oss/langchain/middleware/custom.mdx:64",
+          "docs:src/oss/langchain/models.mdx:134",
+          "docs:src/oss/langchain/context-engineering.mdx:55",
+          "docs:src/oss/langchain/context-engineering.mdx:48",
+          "docs:src/oss/langchain/middleware/custom.mdx:25",
+          "docs:src/oss/langchain/context-engineering.mdx:52"
+        ]
+      },
+      {
+        "qid": "q038",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/streaming.mdx:100",
+          "docs:src/oss/langgraph/streaming.mdx:30",
+          "langgraph:libs/langgraph/langgraph/config.py:0",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:120",
+          "docs:src/oss/langgraph/streaming.mdx:43",
+          "docs:src/oss/langchain/models.mdx:123",
+          "docs:src/oss/langgraph/streaming.mdx:18",
+          "langchain:libs/core/langchain_core/runnables/base.py:108",
+          "langgraph:libs/langgraph/langgraph/config.py:4",
+          "langchain:libs/core/langchain_core/runnables/passthrough.py:13"
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "rerank",
+    "n_queries": 38,
+    "hit@1": 0.763,
+    "recall@1": 0.763,
+    "hit@3": 0.921,
+    "recall@3": 0.921,
+    "hit@5": 0.921,
+    "recall@5": 0.921,
+    "hit@10": 0.921,
+    "recall@10": 0.921,
+    "mrr": 0.842,
+    "per_query": [
+      {
+        "qid": "q001",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/human-in-the-loop.mdx:0",
+          "docs:src/oss/deepagents/human-in-the-loop.mdx:8",
+          "docs:src/oss/langchain/sql-agent.mdx:26",
+          "docs:src/oss/langchain/middleware/built-in.mdx:24",
+          "docs:src/oss/langchain/sql-agent.mdx:23",
+          "docs:src/oss/langchain/human-in-the-loop.mdx:1",
+          "docs:src/oss/langchain/frontend/overview.mdx:13",
+          "docs:src/oss/langchain/human-in-the-loop.mdx:3",
+          "docs:src/oss/langchain/human-in-the-loop.mdx:41",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:67"
+        ]
+      },
+      {
+        "qid": "q002",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/streaming.mdx:39",
+          "docs:src/oss/langchain/streaming.mdx:40",
+          "docs:src/oss/langchain/streaming.mdx:13",
+          "docs:src/oss/deepagents/streaming.mdx:9",
+          "docs:src/oss/langchain/guardrails.mdx:31",
+          "docs:src/oss/langchain/streaming.mdx:4",
+          "docs:src/oss/langchain/guardrails.mdx:18",
+          "docs:src/oss/langchain/guardrails.mdx:34",
+          "docs:src/oss/langgraph/streaming.mdx:43",
+          "docs:src/oss/langgraph/streaming.mdx:79"
+        ]
+      },
+      {
+        "qid": "q003",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:35",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:31",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:44",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:22",
+          "docs:src/oss/langchain/multi-agent/router.mdx:2",
+          "docs:src/oss/langchain/multi-agent/router.mdx:5",
+          "docs:src/oss/langchain/multi-agent/router.mdx:4",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:19",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:30",
+          "docs:src/oss/langchain/multi-agent/router-knowledge-base.mdx:36"
+        ]
+      },
+      {
+        "qid": "q004",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:30",
+          "docs:src/oss/deepagents/skills.mdx:13",
+          "docs:src/oss/deepagents/skills.mdx:29",
+          "docs:src/oss/deepagents/skills.mdx:14",
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:9",
+          "docs:src/oss/deepagents/skills.mdx:11",
+          "docs:src/oss/deepagents/skills.mdx:12",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:61",
+          "docs:src/oss/deepagents/skills.mdx:23",
+          "docs:src/oss/langchain/multi-agent/skills-sql-assistant.mdx:27"
+        ]
+      },
+      {
+        "qid": "q005",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/rag.mdx:17",
+          "docs:src/oss/langchain/quickstart.mdx:2",
+          "docs:src/oss/deepagents/rag.mdx:18",
+          "docs:src/oss/deepagents/code/config-file.mdx:23",
+          "docs:src/oss/deepagents/code/providers.mdx:4",
+          "docs:src/oss/deepagents/code/config-file.mdx:6",
+          "docs:src/oss/deepagents/code/credentials.mdx:2",
+          "docs:src/oss/deepagents/code/credentials.mdx:7",
+          "docs:src/oss/deepagents/code/config-file.mdx:24",
+          "docs:src/oss/deepagents/code/credentials.mdx:8"
+        ]
+      },
+      {
+        "qid": "q006",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/code/configuration.mdx:3",
+          "docs:src/oss/deepagents/code/configuration.mdx:39",
+          "docs:src/oss/deepagents/code/providers.mdx:14",
+          "docs:src/oss/deepagents/code/configuration.mdx:40",
+          "docs:src/oss/deepagents/code/credentials.mdx:0",
+          "docs:src/oss/deepagents/code/configuration.mdx:8",
+          "docs:src/oss/deepagents/code/config-file.mdx:16",
+          "docs:src/oss/deepagents/code/credentials.mdx:13",
+          "docs:src/oss/deepagents/customization.mdx:16",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:6"
+        ]
+      },
+      {
+        "qid": "q007",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/knowledge-base.mdx:13",
+          "docs:src/oss/deepagents/rag.mdx:25",
+          "langchain:libs/core/langchain_core/document_loaders/base.py:2",
+          "docs:src/oss/langchain/knowledge-base.mdx:14",
+          "langchain:libs/core/langchain_core/document_loaders/base.py:3",
+          "docs:src/oss/deepagents/rag.mdx:21",
+          "docs:src/oss/deepagents/rag.mdx:26",
+          "docs:src/oss/langgraph/agentic-rag.mdx:8",
+          "langchain:libs/core/langchain_core/indexing/api.py:18",
+          "langchain:libs/core/langchain_core/indexing/api.py:41"
+        ]
+      },
+      {
+        "qid": "q008",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/event-streaming.mdx:19",
+          "langgraph:libs/langgraph/langgraph/stream/__init__.py:0",
+          "docs:src/oss/langgraph/use-subgraphs.mdx:76",
+          "langgraph:libs/langgraph/langgraph/stream/transformers.py:9",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:202",
+          "docs:src/oss/langgraph/add-memory.mdx:28",
+          "docs:src/oss/langgraph/add-memory.mdx:14",
+          "langchain:libs/core/langchain_core/runnables/base.py:81",
+          "docs:src/oss/langgraph/event-streaming.mdx:1",
+          "docs:src/oss/langgraph/add-memory.mdx:22"
+        ]
+      },
+      {
+        "qid": "q009",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/retrieval.mdx:3",
+          "docs:src/oss/langchain/knowledge-base.mdx:41",
+          "docs:src/oss/langchain/knowledge-base.mdx:1",
+          "docs:src/oss/deepagents/rag.mdx:5",
+          "docs:src/oss/langchain/retrieval.mdx:0",
+          "docs:src/oss/deepagents/rag.mdx:29",
+          "docs:src/oss/langchain/retrieval.mdx:12",
+          "docs:src/oss/langchain/retrieval.mdx:24",
+          "docs:src/oss/langgraph/agentic-rag.mdx:5",
+          "docs:src/oss/langchain/knowledge-base.mdx:42"
+        ]
+      },
+      {
+        "qid": "q010",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/mcp.mdx:37",
+          "docs:src/oss/langchain/mcp.mdx:36",
+          "docs:src/oss/langchain/mcp.mdx:70",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:0",
+          "docs:src/oss/langchain/mcp.mdx:25",
+          "docs:src/oss/deepagents/tools.mdx:3",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:13",
+          "docs:src/oss/deepagents/code/mcp-tools.mdx:7",
+          "langchain:libs/core/langchain_core/messages/block_translators/openai.py:48",
+          "docs:src/oss/langchain/mcp.mdx:38"
+        ]
+      },
+      {
+        "qid": "q011",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:13",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:49",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:14",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:60",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:27",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:61",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:52",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:87",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:85",
+          "docs:src/oss/langchain/multi-agent/subagents-personal-assistant.mdx:68"
+        ]
+      },
+      {
+        "qid": "q012",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/memory.mdx:29",
+          "docs:src/oss/deepagents/memory.mdx:30",
+          "docs:src/oss/deepagents/memory.mdx:28",
+          "docs:src/oss/deepagents/memory.mdx:38",
+          "docs:src/oss/deepagents/memory.mdx:40",
+          "docs:src/oss/deepagents/memory.mdx:39",
+          "docs:src/oss/langchain/tools.mdx:20",
+          "docs:src/oss/langgraph/use-graph-api.mdx:184",
+          "docs:src/oss/deepagents/going-to-production.mdx:14",
+          "docs:src/oss/langchain/tools.mdx:35"
+        ]
+      },
+      {
+        "qid": "q013",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:3",
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:5",
+          "docs:src/oss/deepagents/code/configuration.mdx:40",
+          "docs:src/oss/deepagents/code/configuration.mdx:1",
+          "docs:src/oss/deepagents/code/configuration.mdx:8",
+          "docs:src/oss/deepagents/code/configuration.mdx:34",
+          "docs:src/oss/deepagents/code/subagents.mdx:0",
+          "docs:src/oss/deepagents/content-builder.mdx:6",
+          "docs:src/oss/deepagents/skills.mdx:53",
+          "docs:src/oss/deepagents/code/memory-and-skills.mdx:4"
+        ]
+      },
+      {
+        "qid": "q014",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:13",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:11",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:67",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:23",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:46",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:16",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:48",
+          "docs:src/oss/langchain/event-streaming.mdx:5",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:137",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:69"
+        ]
+      },
+      {
+        "qid": "q015",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/messages/tool.py:19",
+          "langchain:libs/core/langchain_core/messages/tool.py:17",
+          "langchain:libs/core/langchain_core/messages/ai.py:1",
+          "langchain:libs/core/langchain_core/messages/ai.py:26",
+          "langchain:libs/core/langchain_core/messages/content.py:13",
+          "langchain:libs/core/langchain_core/messages/tool.py:15",
+          "langchain:libs/core/langchain_core/messages/tool.py:13",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:1",
+          "langchain:libs/core/langchain_core/messages/ai.py:30",
+          "langchain:libs/core/langchain_core/output_parsers/openai_tools.py:4"
+        ]
+      },
+      {
+        "qid": "q016",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tools/base.py:82",
+          "langchain:libs/core/langchain_core/tools/base.py:83",
+          "langchain:libs/core/langchain_core/tools/base.py:48",
+          "langchain:libs/core/langchain_core/tools/base.py:35",
+          "langchain:libs/core/langchain_core/tools/base.py:23",
+          "langchain:libs/core/langchain_core/runnables/base.py:272",
+          "langchain:libs/core/langchain_core/runnables/base.py:273",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:13",
+          "langchain:libs/core/langchain_core/runnables/base.py:285",
+          "langchain:libs/core/langchain_core/tools/structured.py:7"
+        ]
+      },
+      {
+        "qid": "q017",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/prompts/base.py:2",
+          "langchain:libs/core/langchain_core/prompts/chat.py:42",
+          "langchain:libs/core/langchain_core/prompts/string.py:0",
+          "langchain:libs/core/langchain_core/prompts/base.py:7",
+          "langchain:libs/core/langchain_core/prompts/chat.py:49",
+          "langchain:libs/core/langchain_core/prompts/chat.py:32",
+          "langchain:libs/core/langchain_core/prompts/chat.py:44",
+          "langchain:libs/core/langchain_core/prompts/chat.py:7",
+          "langchain:libs/core/langchain_core/prompts/chat.py:50",
+          "langchain:libs/core/langchain_core/prompts/chat.py:8"
+        ]
+      },
+      {
+        "qid": "q018",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:3",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:2",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:4",
+          "langchain:libs/core/langchain_core/tracers/langchain.py:7",
+          "langchain:libs/core/langchain_core/outputs/run_info.py:0",
+          "langchain:libs/core/langchain_core/tracers/event_stream.py:16",
+          "langchain:libs/core/langchain_core/messages/content.py:21",
+          "langchain:libs/core/langchain_core/tracers/log_stream.py:21",
+          "langchain:libs/core/langchain_core/runnables/base.py:61",
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:2"
+        ]
+      },
+      {
+        "qid": "q019",
+        "type": "code",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/graph-api.mdx:79",
+          "langgraph:libs/langgraph/langgraph/types.py:33",
+          "docs:src/oss/langgraph/graph-api.mdx:81",
+          "docs:src/oss/langgraph/use-graph-api.mdx:135",
+          "docs:src/oss/langgraph/graph-api.mdx:78",
+          "langgraph:libs/langgraph/langgraph/types.py:34",
+          "docs:src/oss/langgraph/use-graph-api.mdx:139",
+          "docs:src/oss/langgraph/graph-api.mdx:80",
+          "docs:src/oss/langgraph/use-graph-api.mdx:129",
+          "langgraph:libs/langgraph/langgraph/types.py:32"
+        ]
+      },
+      {
+        "qid": "q020",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/pregel/debug.py:12",
+          "docs:src/oss/langgraph/checkpointers.mdx:9",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:57",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:56",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:63",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:62",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:109",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:5",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:4",
+          "langgraph:libs/langgraph/langgraph/pregel/_algo.py:11"
+        ]
+      },
+      {
+        "qid": "q021",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:44",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:40",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:46",
+          "langchain:libs/core/langchain_core/language_models/_compat_bridge.py:11",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:54",
+          "langchain:libs/core/langchain_core/messages/content.py:20",
+          "langchain:libs/core/langchain_core/messages/content.py:57",
+          "langchain:libs/core/langchain_core/language_models/_compat_bridge.py:10",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:28",
+          "langchain:libs/core/langchain_core/messages/block_translators/bedrock_converse.py:12"
+        ]
+      },
+      {
+        "qid": "q022",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/utils/usage.py:1",
+          "langchain:libs/core/langchain_core/utils/usage.py:2",
+          "langchain:libs/core/langchain_core/_api/__init__.py:0",
+          "langchain:libs/core/langchain_core/load/mapping.py:19",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:1",
+          "langchain:libs/core/langchain_core/runnables/base.py:1",
+          "langchain:libs/core/langchain_core/load/mapping.py:21",
+          "langchain:libs/core/langchain_core/language_models/base.py:11",
+          "langchain:libs/core/langchain_core/language_models/_compat_bridge.py:4",
+          "langchain:libs/core/langchain_core/utils/function_calling.py:30"
+        ]
+      },
+      {
+        "qid": "q023",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/tracers/base.py:35",
+          "langchain:libs/core/langchain_core/tracers/root_listeners.py:3",
+          "langchain:libs/core/langchain_core/tracers/base.py:0",
+          "langchain:libs/core/langchain_core/tracers/__init__.py:0",
+          "langchain:libs/core/langchain_core/tracers/context.py:0",
+          "langchain:libs/core/langchain_core/retrievers.py:3",
+          "langchain:libs/core/langchain_core/tracers/root_listeners.py:1",
+          "langchain:libs/core/langchain_core/runnables/base.py:2",
+          "langchain:libs/core/langchain_core/tracers/base.py:20",
+          "langchain:libs/core/langchain_core/tracers/root_listeners.py:0"
+        ]
+      },
+      {
+        "qid": "q024",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:27",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:6",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:22",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:24",
+          "docs:src/oss/deepagents/going-to-production.mdx:12",
+          "langgraph:libs/langgraph/langgraph/pregel/remote.py:4",
+          "docs:src/oss/deepagents/going-to-production.mdx:13",
+          "docs:src/oss/deepagents/going-to-production.mdx:14",
+          "docs:src/oss/langgraph/interrupts.mdx:5",
+          "langgraph:libs/langgraph/langgraph/pregel/_retry.py:1"
+        ]
+      },
+      {
+        "qid": "q025",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/messages/ai.py:19",
+          "langchain:libs/core/langchain_core/messages/utils.py:32",
+          "docs:src/oss/langchain/messages.mdx:22",
+          "docs:src/oss/langchain/frontend/tool-calling.mdx:1",
+          "langchain:libs/core/langchain_core/messages/utils.py:24",
+          "docs:src/oss/langchain/frontend/tool-calling.mdx:6",
+          "docs:src/oss/langchain/structured-output.mdx:24",
+          "langchain:libs/core/langchain_core/messages/content.py:55",
+          "langchain:libs/core/langchain_core/messages/utils.py:33",
+          "langchain:libs/core/langchain_core/messages/base.py:15"
+        ]
+      },
+      {
+        "qid": "q026",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/utils/pydantic.py:10",
+          "langchain:libs/core/langchain_core/tools/base.py:1",
+          "langgraph:libs/langgraph/langgraph/_internal/_pydantic.py:9",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:15",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:12",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:14",
+          "langchain:libs/core/langchain_core/utils/pydantic.py:27",
+          "langchain:libs/core/langchain_core/prompts/base.py:1",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:142",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:143"
+        ]
+      },
+      {
+        "qid": "q027",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/pregel/_loop.py:43",
+          "langgraph:libs/langgraph/langgraph/types.py:40",
+          "docs:src/oss/langgraph/functional-api.mdx:56",
+          "docs:src/oss/langgraph/interrupts.mdx:55",
+          "langgraph:libs/langgraph/langgraph/pregel/_loop.py:49",
+          "docs:src/oss/langgraph/interrupts.mdx:4",
+          "docs:src/oss/langgraph/backward-compatibility.mdx:10",
+          "docs:src/oss/langgraph/interrupts.mdx:11",
+          "docs:src/oss/langchain/frontend/human-in-the-loop.mdx:1",
+          "docs:src/oss/langgraph/graph-api.mdx:94"
+        ]
+      },
+      {
+        "qid": "q028",
+        "type": "code",
+        "rr": 0.0,
+        "gold_rank": null,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/use-graph-api.mdx:36",
+          "docs:src/oss/langgraph/use-graph-api.mdx:2",
+          "docs:src/oss/langgraph/streaming.mdx:95",
+          "docs:src/oss/langgraph/graph-api.mdx:11",
+          "docs:src/oss/langgraph/use-graph-api.mdx:37",
+          "docs:src/oss/langgraph/graph-api.mdx:51",
+          "docs:src/oss/langgraph/use-graph-api.mdx:40",
+          "docs:src/oss/langchain/multi-agent/custom-workflow.mdx:7",
+          "docs:src/oss/langgraph/use-graph-api.mdx:41",
+          "docs:src/oss/langgraph/graph-api.mdx:12"
+        ]
+      },
+      {
+        "qid": "q029",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:5",
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:0",
+          "langchain:libs/core/langchain_core/outputs/llm_result.py:2",
+          "langchain:libs/core/langchain_core/language_models/llms.py:1",
+          "langchain:libs/core/langchain_core/callbacks/usage.py:2",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:3",
+          "langchain:libs/core/langchain_core/outputs/__init__.py:0",
+          "docs:src/oss/langchain/test/evals.mdx:17",
+          "docs:src/oss/langchain/knowledge-base.mdx:9",
+          "langchain:libs/core/langchain_core/runnables/__init__.py:0"
+        ]
+      },
+      {
+        "qid": "q030",
+        "type": "code",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "langgraph:libs/langgraph/langgraph/stream/transformers.py:9",
+          "langchain:libs/core/langchain_core/callbacks/base.py:4",
+          "langchain:libs/core/langchain_core/runnables/base.py:81",
+          "langchain:libs/core/langchain_core/language_models/chat_model_stream.py:32",
+          "docs:src/oss/langgraph/event-streaming.mdx:19",
+          "langchain:libs/core/langchain_core/runnables/base.py:73",
+          "langgraph:libs/langgraph/langgraph/pregel/main.py:207",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:36",
+          "langchain:libs/core/langchain_core/runnables/base.py:76",
+          "langchain:libs/core/langchain_core/runnables/base.py:75"
+        ]
+      },
+      {
+        "qid": "q031",
+        "type": "code",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/callbacks/manager.py:13",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:23",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:14",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:24",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:15",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:21",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:70",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:62",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:66",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:50"
+        ]
+      },
+      {
+        "qid": "q032",
+        "type": "code",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "langchain:libs/core/langchain_core/prompts/loading.py:11",
+          "langchain:libs/core/langchain_core/prompts/loading.py:15",
+          "langchain:libs/core/langchain_core/prompts/prompt.py:1",
+          "langchain:libs/core/langchain_core/prompts/loading.py:13",
+          "langchain:libs/core/langchain_core/prompts/loading.py:14",
+          "langchain:libs/core/langchain_core/prompts/few_shot_with_templates.py:2",
+          "langchain:libs/core/langchain_core/prompts/loading.py:0",
+          "langchain:libs/core/langchain_core/prompts/few_shot.py:11",
+          "langchain:libs/core/langchain_core/prompts/prompt.py:10",
+          "docs:src/oss/langchain/mcp.mdx:38"
+        ]
+      },
+      {
+        "qid": "q033",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/fault-tolerance.mdx:25",
+          "docs:src/oss/langgraph/use-graph-api.mdx:83",
+          "docs:src/oss/langgraph/use-functional-api.mdx:32",
+          "langgraph:libs/langgraph/langgraph/errors.py:8",
+          "docs:src/oss/langgraph/use-graph-api.mdx:84",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:26",
+          "langgraph:libs/langgraph/langgraph/graph/state.py:36",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:19",
+          "langgraph:libs/langgraph/langgraph/pregel/_read.py:5",
+          "docs:src/oss/langgraph/fault-tolerance.mdx:1"
+        ]
+      },
+      {
+        "qid": "q034",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:31",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:33",
+          "docs:src/oss/deepagents/customization.mdx:15",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:24",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:29",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:26",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:30",
+          "docs:src/oss/deepagents/profiles.mdx:9",
+          "docs:src/oss/deepagents/context-engineering.mdx:18",
+          "docs:src/oss/langchain/multi-agent/subagents.mdx:21"
+        ]
+      },
+      {
+        "qid": "q035",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/deepagents/rubric.mdx:16",
+          "docs:src/oss/deepagents/code/goals-and-rubrics.mdx:1",
+          "docs:src/oss/deepagents/rubric.mdx:6",
+          "docs:src/oss/deepagents/rubric.mdx:1",
+          "docs:src/oss/deepagents/rubric.mdx:17",
+          "docs:src/oss/langchain/middleware/built-in.mdx:141",
+          "docs:src/oss/deepagents/rubric.mdx:2",
+          "docs:src/oss/deepagents/going-to-production.mdx:29",
+          "docs:src/oss/deepagents/rubric.mdx:18",
+          "docs:src/oss/deepagents/context-engineering.mdx:21"
+        ]
+      },
+      {
+        "qid": "q036",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/models.mdx:128",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:22",
+          "docs:src/oss/deepagents/models.mdx:9",
+          "langchain:libs/core/langchain_core/language_models/chat_models.py:23",
+          "docs:src/oss/langchain/models.mdx:129",
+          "docs:src/oss/deepagents/code/config-file.mdx:29",
+          "docs:src/oss/langgraph/add-memory.mdx:68",
+          "docs:src/oss/langgraph/add-memory.mdx:50",
+          "docs:src/oss/langgraph/use-graph-api.mdx:68",
+          "docs:src/oss/langchain/context-engineering.mdx:52"
+        ]
+      },
+      {
+        "qid": "q037",
+        "type": "doc",
+        "rr": 0.5,
+        "gold_rank": 2,
+        "retrieved_ids": [
+          "docs:src/oss/langchain/context-engineering.mdx:59",
+          "docs:src/oss/langchain/context-engineering.mdx:60",
+          "docs:src/oss/deepagents/models.mdx:9",
+          "docs:src/oss/langchain/context-engineering.mdx:61",
+          "docs:src/oss/langchain/context-engineering.mdx:52",
+          "docs:src/oss/langchain/models.mdx:134",
+          "docs:src/oss/langchain/context-engineering.mdx:55",
+          "docs:src/oss/langchain/middleware/custom.mdx:65",
+          "docs:src/oss/langchain/tools.mdx:57",
+          "docs:src/oss/langchain/middleware/custom.mdx:64"
+        ]
+      },
+      {
+        "qid": "q038",
+        "type": "doc",
+        "rr": 1.0,
+        "gold_rank": 1,
+        "retrieved_ids": [
+          "docs:src/oss/langgraph/streaming.mdx:30",
+          "docs:src/oss/langgraph/streaming.mdx:100",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:120",
+          "docs:src/oss/langgraph/streaming.mdx:18",
+          "langgraph:libs/langgraph/langgraph/config.py:0",
+          "docs:src/oss/langgraph/streaming.mdx:43",
+          "docs:src/oss/langchain/models.mdx:123",
+          "langchain:libs/core/langchain_core/runnables/base.py:108",
+          "langchain:libs/core/langchain_core/callbacks/manager.py:11",
+          "langgraph:libs/langgraph/langgraph/config.py:4"
+        ]
+      }
+    ]
+  }
+]
