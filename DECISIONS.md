@@ -243,3 +243,124 @@ Sweep collections (`techdoc_s{size}_o{overlap}`, ~414 MB) were deleted after rec
 ## Eval: generation (Step 6c)
 
 _Pending — faithfulness, answer relevance, citation correctness via `get_judge_llm()`._
+
+---
+
+## Agent graph (Step 7)
+
+`techdoc/graph.py`. A LangGraph supervisor that routes each question to a docs agent,
+a code agent, or both in parallel, then synthesises one cited answer.
+
+```
+START -> route ->  ┌── search_docs ──┐
+                   ├── search_code ──┤ -> synthesize -> END
+                   └── (both, parallel)
+```
+
+**Why a graph and not one prompt.** Step 6b measured the gap this exists to close:
+**doc questions hit@5 = 1.000, code questions 0.684.** The two corpora fail differently,
+so they get different candidate pools. The supervisor shape also buys two things a single
+prompt cannot: cost tiering, and a LangSmith trace where every step is a named span.
+
+### Model tiering
+
+| node | model | why |
+| --- | --- | --- |
+| `route` | `us.anthropic.claude-haiku-4-5-20251001-v1:0` | 3-way classification on one short question, runs on **every** query |
+| `synthesize` | `us.anthropic.claude-sonnet-5` | the only step whose output the user reads |
+
+Routing is where tiering pays, because it is the step that always runs and the step
+that needs the least capability. Gotcha: the Haiku id needs **both** the `us.`
+inference-profile prefix and the `-v1:0` suffix. Without the suffix Bedrock raises
+`ValidationException: The provided model identifier is invalid` — the ARN is only
+discoverable via `aws bedrock list-inference-profiles`.
+
+### Design decisions
+
+- **`Annotated[list[Document], operator.add]` on `docs` is the single load-bearing line.**
+  On `route == "both"` two nodes write `docs` in the same superstep. Without a reducer
+  LangGraph raises `InvalidUpdateError` on the concurrent write; with `operator.add` the
+  two lists concatenate. Verified: the `both` route returns 7 sources (5 doc + 5 code,
+  post-filtered), not 5.
+- **Conditional edge returning a *list* of node names**, not `Send()`. Returning
+  `["search_docs", "search_code"]` fans out to run both in one superstep. `Send()` is the
+  alternative and is the right tool when each branch needs a *different payload*; here
+  both branches read the same `question` off shared state, so the list form is simpler.
+- **Both agents edge into `synthesize`, which still runs exactly once.** LangGraph waits
+  for all active branches to finish before the next superstep (barrier), so `synthesize`
+  sees the merged list rather than firing per branch. Confirmed empirically.
+- **Structured routing via `with_structured_output(RouteDecision)`** — a Pydantic model
+  with `route: Literal["docs","code","both"]` plus a `reason` field. No free-text parsing,
+  and the field `description`s are the actual routing instructions the model sees. The
+  `reason` field is not consumed by the graph; it exists to make the trace readable and
+  to give the model a place to think.
+- **Post-filter, not pre-filter, for corpus type.** `retrieve_filtered()` fetches `k*4`
+  hybrid candidates and keeps those whose `metadata["type"]` matches. A Qdrant payload
+  pre-filter would be strictly better, but BM25 here is an in-memory index with no filter
+  API, so pre-filtering would mean maintaining two BM25 indexes. Documented tradeoff, not
+  an oversight — see limitations below.
+- **`answer()` / `astream_answer()` are the public contract.** The Streamlit UI (Step 10)
+  depends only on `AnswerResult(text, sources, route)` and an async iterator of strings,
+  so graph internals stay free to change.
+
+### Streaming
+
+`stream_mode="messages"` yields `(chunk, metadata)` for **every LLM token inside the
+graph**, so the `metadata["langgraph_node"] == "synthesize"` filter is load-bearing, not
+defensive. Measured on one `both` query:
+
+| node | message chunks emitted |
+| --- | --- |
+| `route` | 35 |
+| `synthesize` | 230 |
+
+Without the filter the router's structured-output JSON streams into the user's answer.
+The `and chunk.text` guard is also required — Bedrock emits empty content-block chunks.
+Measured `both` route: 227 tokens, **TTFT ~9s**, 19.3s total; inline `[n]` citations
+survive streaming intact.
+
+### Bugs found, all three silent
+
+Same pattern as the BM25 tokenizer and the chunk-id label rot: nothing threw where the
+damage happened.
+
+1. **`return {"code": hits}` from `search_code`.** There is no `code` key in `GraphState`,
+   so LangGraph **silently discarded every code result** — no error, no warning, just a
+   graph that answered code questions from docs. TypedDict is a type-checker hint; it does
+   not validate at runtime. Same reason `GraphState(route="")` constructs happily despite
+   `route` being a `Literal`.
+2. **The retriever singleton was not thread-safe.** Guarded with try/except-`NameError`,
+   so on the `both` route both branches could enter the constructor before either finished,
+   and the loser hit
+   `RuntimeError: Storage folder qdrant_data is already accessed by another instance of
+   Qdrant client` (Qdrant local mode holds an exclusive file lock). The sync path never
+   crashed **by luck** — `.invoke()` happened to schedule both branches onto the same pool
+   worker (`ThreadPoolExecutor-1_0`), serialising them; `.astream()` does not. Fixed with
+   double-checked locking under a `threading.Lock`: 8 concurrent callers against a
+   deliberately-slow constructor now give 1 construction, 1 instance.
+3. **`response.text()` vs `response.text`.** In langchain-core 1.4.9 `.text` is a
+   **property**; calling it emits `LangChainDeprecationWarning`. Only visible because the
+   streaming test surfaced the warning.
+
+### Non-determinism is expected here
+
+The same question streamed 73–227 tokens across runs. Retrieval was verified byte-identical
+over three runs, so the variance is generation: **Sonnet 5 does not support `temperature`**
+and `langchain-aws` silently drops the param. This is why `get_judge_llm()` is Sonnet 4.6 —
+Step 6c needs reproducible scores. Not a bug, but it means generation eval must average
+over runs or accept score jitter.
+
+### Known limitations
+
+- **No checkpointer, so no multi-turn memory.** `answer()` is single-shot. Adding
+  `MemorySaver` + a `thread_id` is a small change; deferred until the UI needs it.
+- **Post-filter can under-fill.** If fewer than `k` of the `k*4` candidates match the
+  requested type, the agent returns fewer than 5 chunks (worst case zero, which
+  `synthesize` handles with an explicit "not found" answer rather than hallucinating).
+  Not yet observed on the golden set, but it is the failure mode to watch.
+- **Router accuracy is unmeasured.** Cheap to fix and worth doing: the 38-row golden set
+  already carries a `type: doc | code` label per question, which is a free routing
+  ground-truth for the two-way cases. Folded into Step 6c.
+- **Filtered retrieval is unmeasured.** Step 6b measured unfiltered `HybridRetriever`;
+  the graph measures nothing about whether `retrieve_filtered` beats it on the matching
+  half of the corpus. That is the experiment that would justify the whole fork.
