@@ -8,7 +8,7 @@ WHY A GRAPH AND NOT ONE PROMPT
 ------------------------------
 Different question types need different retrieval. "What is a checkpointer?" wants
 prose; "what does _pending_interrupts return?" wants source. Step 6 measured the gap:
-doc questions hit@5 = 1.000, code questions 0.684. Filtering retrieval by corpus type
+doc questions hit@5 = 1.000, code questions 0.842. Filtering retrieval by corpus type
 gives each agent a cleaner candidate pool than one undifferentiated search.
 
 The supervisor pattern also gives us cost tiering (Haiku routes, Sonnet writes) and a

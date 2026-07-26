@@ -170,7 +170,7 @@ Two lessons worth stating plainly:
 
 ### Where retrieval still fails
 
-Split by corpus type (rerank mode): **doc hit@5 = 1.000, code hit@5 = 0.684.**
+Split by corpus type (rerank mode): **doc hit@5 = 1.000, code hit@5 = 0.842.**
 All remaining failures are code questions. Two causes, both known and unfixed:
 
 - **Chunk-boundary misattribution.** The gold chunk holds a function *signature* while
@@ -450,7 +450,7 @@ START -> route ->  ┌── search_docs ──┐
 ```
 
 **Why a graph and not one prompt.** Step 6b measured the gap this exists to close:
-**doc questions hit@5 = 1.000, code questions 0.684.** The two corpora fail differently,
+**doc questions hit@5 = 1.000, code questions 0.842.** The two corpora fail differently,
 so they get different candidate pools. The supervisor shape also buys two things a single
 prompt cannot: cost tiering, and a LangSmith trace where every step is a named span.
 
