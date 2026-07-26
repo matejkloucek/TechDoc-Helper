@@ -280,7 +280,12 @@ def answer(question: str) -> AnswerResult:
         docs=[],
         answer=""
     )
-    final_state = get_graph().invoke(initial_state)
+    # `run_name` overrides the default "LangGraph" so the trace list distinguishes a
+    # blocking call from a streamed one; the tag separates eval traffic from the UI.
+    final_state = get_graph().invoke(
+        initial_state,
+        config={"run_name": "techdoc_answer", "tags": ["answer"]},
+    )
     return AnswerResult(
         text=final_state["answer"],
         sources=final_state["docs"],
@@ -340,6 +345,7 @@ async def astream_events(question: str):
     async for mode, payload in get_graph().astream(
         initial_state,
         stream_mode=["messages", "values"],
+        config={"run_name": "techdoc_stream", "tags": ["ui", "stream"]},
     ):
         if mode == "messages":
             chunk, meta = payload

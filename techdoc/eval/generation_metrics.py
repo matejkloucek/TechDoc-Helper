@@ -361,12 +361,28 @@ def router_accuracy(records: list[dict]) -> dict:
 
 # -- stage 2b: LLM judges --
 
+def _trace(name: str, record: dict, **extra) -> dict:
+    """LangSmith config so a judge span is identifiable in the trace UI.
+
+    Without this every judge call lands as an anonymous `RunnableSequence` root --
+    432 of them for one full run, with no way to get from a surprising score back to
+    the question that produced it. `run_name` makes the span searchable and the
+    metadata makes it filterable (e.g. all faithfulness judgements on code questions).
+    """
+    return {
+        "run_name": name,
+        "metadata": {"qid": record["qid"], "q_type": record.get("type"),
+                     "route": record.get("route"), **extra},
+        "tags": ["eval", "step-6c", name],
+    }
+
+
 def judge_faithfulness(record: dict) -> FaithfulnessScore:
     """Score one answer for groundedness against its own retrieved context."""
     llm = get_judge_llm().with_structured_output(FaithfulnessScore)
     context = format_context(_deserialize_sources(record["sources"]))
     prompt = FAITHFULNESS_PROMPT.format(context=context, answer=record["answer"])
-    return llm.invoke(prompt)
+    return llm.invoke(prompt, config=_trace("judge_faithfulness", record))
 
 
 def judge_relevance(record: dict) -> RelevanceScore:
@@ -374,7 +390,7 @@ def judge_relevance(record: dict) -> RelevanceScore:
 
     llm = get_judge_llm().with_structured_output(RelevanceScore)
     prompt = RELEVANCE_PROMPT.format(question=record["question"], answer=record["answer"])
-    return llm.invoke(prompt)
+    return llm.invoke(prompt, config=_trace("judge_relevance", record))
 
 
 def _claim_for_marker(text: str, marker_pos: int) -> str:
@@ -436,11 +452,15 @@ def judge_citations(record: dict) -> dict:
         seen.add(n)
 
         claim = _claim_for_marker(text, m.start())
-        verdict = llm.invoke(CITATION_PROMPT.format(
-            claim=claim,
-            n=n,
-            source=record["sources"][n - 1]["page_content"],
-        ))
+        verdict = llm.invoke(
+            CITATION_PROMPT.format(
+                claim=claim,
+                n=n,
+                source=record["sources"][n - 1]["page_content"],
+            ),
+            # marker=n so a failing citation is findable without opening every span
+            config=_trace("judge_citation", record, marker=n),
+        )
         details.append({
             "n": n,
             "claim": claim,

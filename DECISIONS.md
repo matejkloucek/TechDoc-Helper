@@ -546,13 +546,168 @@ over runs or accept score jitter.
 
 - **No checkpointer, so no multi-turn memory.** `answer()` is single-shot. Adding
   `MemorySaver` + a `thread_id` is a small change; deferred until the UI needs it.
-- **Post-filter can under-fill.** If fewer than `k` of the `k*4` candidates match the
-  requested type, the agent returns fewer than 5 chunks (worst case zero, which
-  `synthesize` handles with an explicit "not found" answer rather than hallucinating).
-  Not yet observed on the golden set, but it is the failure mode to watch.
-- **Router accuracy is unmeasured.** Cheap to fix and worth doing: the 38-row golden set
-  already carries a `type: doc | code` label per question, which is a free routing
-  ground-truth for the two-way cases. Folded into Step 6c.
+- **Post-filter can under-fill — and it happened.** If fewer than `k` of the `k*4`
+  candidates match the requested type, the agent returns fewer than 5 chunks. Step 6c
+  hit the worst case: **q006 got 0 sources**, because it was misrouted to `code` and no
+  code chunk survived the filter. `synthesize` handled it with an explicit "not found"
+  rather than hallucinating (faithfulness 5, relevance 1), which is the designed
+  behaviour, but it confirms the failure mode is live and not theoretical.
+- **Router accuracy: measured in Step 6c.** strict 0.316 / lenient 0.947 / both_rate
+  0.632 — the router hedges to `both` on 63% of questions rather than erring. Only 2 of
+  38 are true misses.
 - **Filtered retrieval is unmeasured.** Step 6b measured unfiltered `HybridRetriever`;
   the graph measures nothing about whether `retrieve_filtered` beats it on the matching
   half of the corpus. That is the experiment that would justify the whole fork.
+
+---
+
+## UI (Step 10)
+
+`app.py` — `uv run streamlit run app.py`. A `st.chat_message` transcript with streamed
+answers and a per-message `Sources (n)` expander whose numbering matches the `[1]/[2]`
+markers in the text.
+
+**Thin on purpose.** Every question goes through `techdoc.graph.astream_events`; no
+retrieval, prompting or model config lives in `app.py`. If any did, the Step 6c numbers
+would stop describing the shipped product.
+
+### One graph run, both streams
+
+The UI needs two things the original `astream_answer` could not give together: live
+tokens *and* the source list. The naive fix is to run the graph twice — once streamed for
+display, once blocking for `AnswerResult.sources` — paying for retrieval and synthesis
+twice to show something the first run already computed.
+
+`stream_mode` accepts a **list**, which changes the yield shape to `(mode, payload)`:
+
+| mode | payload |
+| --- | --- |
+| `"messages"` | `(message_chunk, metadata)` — one per LLM token |
+| `"values"` | the full state dict after each superstep |
+
+So `astream_events` yields a tagged union of `("token", str)` and `("sources", list[Document])`
+from a single run. Two details, both verified on langgraph 1.2.9 rather than assumed:
+
+- **`docs` arrives before synthesis finishes**, so the sources are known by the time the
+  answer completes — no need to buffer the answer or re-query.
+- **The values event fires once per superstep** and `docs` is empty for the first two
+  (START → route). Guarded with a `sources_sent` flag: without it the UI would append the
+  same source list once per remaining superstep.
+
+The `langgraph_node == "synthesize"` filter carries over from `astream_answer` and is just
+as load-bearing — the router emits ~39 chunks of structured-output JSON en route to a
+`RouteDecision`, which would otherwise stream into the user's answer.
+
+### Async graph, sync Streamlit
+
+`st.write_stream` needs a plain sync iterator; the graph is an async generator. `asyncio.run()`
+alone is not enough — it would consume the whole generator before Streamlit saw anything,
+turning a stream into a 15-second blank pause followed by a wall of text.
+
+`_sync_stream` runs the async iteration on a worker thread with its own event loop, pushing
+events onto a `queue.Queue` that the Streamlit thread drains. Verified incremental (tokens
+at 0.05 / 0.10 / 0.15s in a timing test, not batched at the end). Two details:
+
+- **`_DONE` is a sentinel `object()`, not `None`** — `None` is a legitimate queue payload,
+  so using it to mean "finished" would make an empty yield indistinguishable from the end.
+- **Exceptions are put on the queue and re-raised on the Streamlit thread.** Otherwise a
+  Bedrock throttle on the worker would surface as a permanent silent hang; instead it
+  reaches `st.error`. Tested with a simulated `ThrottlingException` mid-stream: partial
+  output renders, then the error.
+
+**Tracing survives the thread hop** — one `LangGraph` root with correctly nested children
+and zero orphaned spans (LangGraph's callback manager propagates through the async context
+inside the worker's own loop). This was the main risk of the threaded bridge and it is fine.
+
+### The closure trap
+
+`tokens()` yields text while capturing the sources event as a side effect, via
+`sources[:] = payload`. Writing `sources = payload` instead would bind a new local and
+leave the outer list empty — and it fails **silently**: the answer streams perfectly and
+the citations simply never appear. Same shape as every other bug in this project.
+
+### Verified with `streamlit.testing.v1.AppTest`
+
+Streamlit ships a headless test harness that runs the real script, so this is end-to-end
+against live Bedrock rather than mocks: 2 chat messages on turn one, `Sources (5)` expander
+with 5 code previews, `[1][2][3]` present in the answer, both turns persisted; 4 messages
+and 2 expanders on turn two (history replays); example-button relay consumed across the
+rerun; clear-chat empties state and render; and the zero-source branch renders a caption
+instead of an empty expander (q006's case, which happens for real).
+
+### Known limitations
+
+- **Stateless per question.** `session_state` holds the transcript for *display*, but the
+  graph receives only the current question — no checkpointer, so "what about the other
+  one?" will not resolve. `MemorySaver` + a `thread_id` is the fix.
+- **First question of a session pays ~10s** to build the BM25 index inside the retriever
+  singleton. Streamlit reruns the whole script per interaction, so that singleton is
+  mandatory rather than an optimisation — without it every keystroke would rebuild BM25
+  and trip Qdrant's exclusive file lock.
+- **A slow answer looks like a hang.** Step 6c saw one question take 364s to a Bedrock
+  throttle-retry against a 14s median; the UI shows nothing until the first token.
+
+## Observability (Step 9)
+
+LangSmith tracing, enabled entirely through env vars in `.env` (`LANGSMITH_TRACING=true`,
+`LANGSMITH_PROJECT=techdoc-helper`, `LANGSMITH_ENDPOINT` → the **EU** host to match where
+the key was issued). `load_dotenv()` in `techdoc/config.py` is what makes it apply to every
+entry point — eval, CLI and UI — without per-script setup. No tracing code in the app.
+
+**1883 spans on 2026-07-26**: 485 roots (53 `LangGraph` graph runs, 432 direct LLM calls)
+and 537 LLM spans, covering the 38-question generation pass, ~150 judge calls and the UI runs.
+
+### The trace is the architecture diagram
+
+A single `both`-route run, as it appears in the span tree:
+
+    techdoc_answer [chain] 25.1s  3098 in / 1352 out = 4450 tokens
+      └ route [chain] 9.11s  904 tok
+        └ RunnableSequence -> ChatBedrockConverse [llm] 9.09s
+                           -> PydanticToolsParser [parser] 0.00s
+      └ fan_out [chain] 0.00s
+      └ search_code [chain] 2.34s  └ BM25Retriever [retriever]
+      └ search_docs [chain] 3.42s  └ BM25Retriever [retriever]
+      └ synthesize [chain] 12.58s  3546 tok
+        └ ChatBedrockConverse [llm] 12.57s
+
+Two things this makes visible that no log line would: **where the latency actually goes**
+(routing is 9s of a 25s request — a third of the wall clock spent on a classification, the
+strongest argument for Haiku on that node), and **per-node token accounting** (route 904 vs
+synthesize 3546), which is what makes the model-tiering decision arguable rather than
+asserted.
+
+### Named runs, because anonymous spans are useless at volume
+
+By default every `llm.invoke()` outside the graph traces as a bare `RunnableSequence` root
+— **432 of them** for one eval run, with no way to get from a surprising score back to the
+question that produced it. Fixed with a `config=` on each judge call (`_trace()` in
+`generation_metrics.py`):
+
+| span | tags | metadata |
+| --- | --- | --- |
+| `judge_faithfulness` | `eval`, `step-6c` | `qid`, `q_type`, `route` |
+| `judge_relevance` | `eval`, `step-6c` | `qid`, `q_type`, `route` |
+| `judge_citation` | `eval`, `step-6c` | `qid`, `q_type`, `route`, `marker` |
+| `techdoc_answer` | `answer` | — |
+| `techdoc_stream` | `ui`, `stream` | — |
+
+`marker` on the citation judge is the useful one: q032 scored 0.0 on citation precision, and
+the metadata is what turns "which citation failed" from a span-by-span hunt into a filter.
+Naming the two graph entry points separately also keeps UI traffic distinguishable from eval
+traffic in one project.
+
+Verified by round-trip: ran the three judges plus both graph paths, then queried the API and
+asserted the names, tags and `qid` metadata came back — and that no anonymous
+`RunnableSequence` root remained. Judge scores were unchanged by the config addition
+(q003: faithfulness 5, relevance 5, citation precision 0.75, matching the recorded run).
+
+### Known limitations
+
+- **No LangSmith datasets or online evals.** Step 6c is a local harness writing JSON; the
+  golden set is a JSONL file, not an uploaded dataset. Uploading it would give run-over-run
+  score comparison in the UI for free, and is the obvious next step.
+- **No feedback loop.** The judge scores live in `results_generation.json`, not attached to
+  their spans as LangSmith feedback, so the trace UI cannot sort by faithfulness.
+- **Tracing is on by default.** Fine for development; a production deploy wants sampling,
+  and the EU endpoint pinned per-environment rather than in a shared `.env`.
