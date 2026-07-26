@@ -109,7 +109,7 @@ Rewritten (question narrowed to what the chunk actually supports):
 ## Eval: retrieval metrics (Step 6b)
 
 `techdoc/eval/retrieval_metrics.py`, 38-question golden set, zero LLM calls (so it is
-deterministic and re-runnable in ~1 min). The three configs are literally prefixes of
+cheap and re-runnable in ~1 min). The three configs are literally prefixes of
 one `HybridRetriever.retrieve(..., mode=)` code path, so the eval measures the real
 pipeline rather than a reimplementation of it.
 
@@ -130,6 +130,34 @@ Reading the table:
   candidates, only reorder the ones fusion supplied. hit@5 == hit@10 for rerank
   because reranking a fixed candidate pool cannot improve deep recall.
 - Rerank costs ~0.55s/query vs ~0.1s for hybrid (32s vs 15s for 38 queries).
+
+### Zero LLM calls is not the same as reproducible
+
+Re-running this harness on 2026-07-26 reproduced **dense and rerank byte-identically** but
+moved **hybrid hit@5 from 0.895 to 0.868** — a 1-question difference, q019 sliding from
+rank 5 to rank 6. Chasing it down one layer at a time:
+
+1. BM25 ordering was identical across trials (it is a local in-memory index — nothing to
+   vary). Dense ordering varied across 3 distinct permutations in 6 trials.
+2. Dense *scores* differed in the 4th decimal for the same query, and q019's gold chunk sits
+   at the rank-5/6 boundary behind a **0.0008** gap: `graph-api.mdx:73` at 0.601471 vs
+   `:78` at 0.600592, and their order swaps between runs.
+3. `embed_query()` called four times on one byte-identical string returned **two distinct
+   vectors**, max elementwise difference **1.1e-3**.
+
+So the non-determinism is in **Bedrock's Cohere embedding endpoint**, upstream of every line
+of code here. There is no seed to set; the service is not bit-reproducible for identical
+input, and `temperature` has nothing to do with it.
+
+Why this matters for reading the tables: **a ±0.03 move in hit@k on n=38 is one question,
+and one question can be pure service jitter.** Only differences larger than a single
+boundary flip mean anything at this sample size — which is exactly why the chunking sweep
+does paired *per-query* comparisons rather than trusting the aggregate deltas, and why the
+generator-noise argument for caching answers in Step 6c applies to the embedder too.
+
+The recorded `results_retrieval.json` is the 2026-07-25 run; the re-run was discarded rather
+than committed, since overwriting a recorded artifact with a statistically identical one
+just loses the provenance.
 
 ### The finding that mattered: BM25's default tokenizer
 
