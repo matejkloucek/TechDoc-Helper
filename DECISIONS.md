@@ -242,7 +242,199 @@ Sweep collections (`techdoc_s{size}_o{overlap}`, ~414 MB) were deleted after rec
 
 ## Eval: generation (Step 6c)
 
-_Pending — faithfulness, answer relevance, citation correctness via `get_judge_llm()`._
+`techdoc/eval/generation_metrics.py`. Step 6b asked "did we put the right chunk in front
+of the model?". This asks "given those chunks, was the ANSWER any good?" — which needs a
+judge, because there is no single correct string to compare against.
+
+Five metrics, and **only three of them use an LLM**:
+
+| metric | how | why |
+| --- | --- | --- |
+| faithfulness 1–5 | judge, sees context + answer | anti-hallucination |
+| answer relevance 1–5 | judge, sees question + answer (**not** the context) | did it answer the question asked |
+| citation support | judge, one (claim, source) pair at a time | does source [n] really back the sentence citing it |
+| citation syntax | pure regex, **no LLM** | do the `[n]` markers point at sources that exist |
+| router accuracy | comparison against golden `type`, **no LLM** | did the supervisor pick the right corpus |
+
+Prefer a deterministic metric over a judge wherever ground truth already exists. The
+golden set's `type` field is free routing ground truth, and marker-in-range is a regex —
+paying Bedrock for either would be slower, noisier and no more correct.
+
+**Run 2026-07-26, 38 questions, Sonnet 4.6 as judge:**
+
+| slice | n | faithfulness | relevance | citation precision | % with citations | % invalid markers |
+| --- | --- | --- | --- | --- | --- | --- |
+| all | 38 | 4.789 | 4.632 | 0.876 | 0.974 | 0.026 |
+| doc | 19 | 4.895 | 4.737 | 0.883 | 0.947 | 0.000 |
+| code | 19 | 4.684 | 4.526 | 0.870 | 1.000 | 0.053 |
+
+| routing | n | strict | lenient | both_rate |
+| --- | --- | --- | --- | --- |
+| router | 38 | 0.316 | 0.947 | 0.632 |
+
+277 markers written, 126 distinct (claim, source) pairs judged, 18 unsupported →
+**pooled citation precision 0.857** (doc 0.851, code 0.864). The per-question mean of
+0.876 runs higher because it weights a 1-citation answer the same as a 6-citation one;
+both are reported, since the pooled figure is the honest one for "how often is a citation
+trustworthy" and the mean is the right one for "how good is a typical answer".
+
+Generation: 14.6 min for 38 questions, median 14.0s, p90 19.1s, one 364s outlier
+(Bedrock throttle-and-retry mid-run, not cold start — q001 was first and took 19s).
+
+### Two stages on purpose: generate, then judge
+
+    stage 1  generate  -- run the real graph over the golden set  -> answers_cache.json
+    stage 2  judge     -- score the cached answers                 -> results_generation.json
+
+Generation is the expensive half, so it is cached to disk and stage 2 reads the cache.
+Two reasons, and both paid off within an hour of writing it:
+
+- **Rubric iteration costs seconds instead of 15 minutes.** Fixing a claim-extraction bug
+  and re-scoring was a cache read, not a regeneration.
+- **It removes a confound.** Sonnet 5 ignores `temperature` (see Models), so regenerating
+  produces *different answers*. A score that moved would be unattributable — rubric change,
+  or generator noise? Judging fixed answers makes rubric changes measurable.
+
+It also turned a crash into a recoverable event: when stage 2 died 38/38 of the way
+through (below), all 38 answers were already on disk. Recovery cost ~11 min of judging
+instead of a 26-minute full run.
+
+### Rubric design: anchored, and deliberately non-overlapping
+
+**Anchored levels.** Every score level is described concretely ("4: all claims supported,
+but one is a mild over-generalisation"). An unanchored "rate this 1–5" drifts between
+runs and clusters everything on 4. It held: faithfulness spread over {3,4,5} and
+relevance over {1,3,4,5} rather than piling on one value.
+
+**The relevance judge does not get the context.** It sees only `{question}` and
+`{answer}`. If it saw the context it would start reasoning "the answer does reflect what
+was retrieved, so it's fine" — which is groundedness, which faithfulness already measures.
+Two rubrics that partly measure the same thing produce correlated scores, and a correlated
+second metric costs money without adding information.
+
+**The independence test.** A well-formed *"the docs don't cover this"* must score
+**faithfulness 5, relevance 1** — it fabricates nothing, and it answers nothing. Both
+prompts say so explicitly. Three questions hit it on the real run:
+
+| qid | sources retrieved | faithfulness | relevance | what it means |
+| --- | --- | --- | --- | --- |
+| q006 | 0 | 5 | 1 | misrouted → post-filter left nothing → refusal |
+| q024 | 10 | 5 | 1 | retrieval returned material, but not the right material |
+| q025 | 5 | 5 | 3 | partial answer, honest about the gap |
+
+The judge's own wording on q006: *"an explicit refusal making no factual claims, so there
+is nothing to contradict"* against *"provides no answer to the question."* That divergence
+is the diagnostic — **high faithfulness + low relevance means retrieval failed and the
+generator behaved correctly.** A single blended "quality" score would have averaged all
+three into a bland 3 and hidden the cause. q024 is the sharpest case: 10 sources retrieved
+and still nothing to say, which no source-count metric would have flagged.
+
+**Citation support is a boolean, not a 1–5.** "Does this source contain this fact?" has a
+right answer, so a scale would only invite the judge to park at 3 on hard cases. Partial
+support counts as *unsupported*, and merely being on-topic is not support.
+
+### What the citation metric caught
+
+The failures are **over-citation, not hallucination** — the model writes a correct sentence
+and staples several markers to it, only some of which back the full claim. Faithfulness
+scored 5 on most of these same answers: the facts are all in the context *somewhere*, the
+*attribution* is wrong. Neither retrieval eval nor faithfulness alone could see this.
+
+**q032 scored 0.0 — every citation in it unsupported, the single most diagnostic row**
+("What file formats does
+`_load_prompt_from_file` support?"):
+- `[2]` — "the source shows three formats (JSON, YAML, YML), not two as the claim asserts"
+- `[4]` — cited for file-format behaviour; the source is just the `load_prompt` signature
+- `[1]` — claim says jinja2 is rejected for "security"; source says arbitrary code execution
+
+**q027 wrote `[0]`** — a marker for a source that cannot exist, since `format_context`
+numbers from 1. Exactly the fabricated-handle case the regex check exists for, and it is
+real rather than hypothetical (1/38 = 2.6%, the only invalid marker in the run).
+
+**An answer with no citations scores precision 1.0** — vacuously perfect. That is why
+`pct_with_citations` is reported next to it; precision alone would rate a citation-free
+answer as flawless. q006's refusal is the only such row.
+
+### The router hedges rather than errs
+
+strict 0.316 looks alarming and lenient 0.947 looks great; the truth is in `both_rate`.
+
+    confusion (golden type -> chosen route)
+      doc->both   14      code->both   10
+      doc->docs    3      code->code    9
+      doc->code    2
+
+Only **2 of 38 are true misses**, both `doc->code`. The other 24 "strict failures" are
+`both` — the correct corpus *was* searched, alongside a second one. So the router is
+cautious, not wrong, and the cost is double retrieval on 63% of questions.
+
+Reporting both numbers is the point, and this run demonstrates why rather than asserting
+it: **strict alone under-credits a router whose only sin is caution; lenient alone would
+hide a router that always says "both" and has learned nothing.** With `both_rate = 0.632`
+the distinction is load-bearing. (An earlier `--limit 3` smoke run showed `both` on all
+three and `both_rate = 1.000`, which looked exactly like collapse — n=3 noise, and a
+reminder not to conclude from a smoke test.)
+
+The two real misses are instructive in opposite directions:
+- **q006** "…precedence order for resolving general configuration options like interpreter
+  limits or themes?" — labelled `doc`, but reads as implementation vocabulary. The router's
+  choice is defensible; the *consequence* is not, and it compounds: routed to `code`, the
+  post-filter kept only `type == "code"` chunks, of which the top-20 had none → **0 sources
+  → refusal**. The routing error and the retrieval failure are the same event.
+- **q033** "What attributes does `NodeTimeoutError` expose…?" — labelled `doc`, but it names
+  a class and asks for its attributes. `code` is arguably the better answer. Charged to the
+  router in the table, but it is more likely a **golden-set labelling artifact**.
+
+`TYPE_TO_ROUTE = {"doc": "docs", "code": "code"}` exists because the golden set says `doc`
+and the router emits `docs`. Without it every doc question scores as a routing miss and the
+router looks broken — a silent vocabulary mismatch, pre-empted rather than discovered.
+
+### Bugs found (both silent-adjacent, both mine)
+
+**1. `with_structured_output` does not guarantee schema conformance.** Bedrock Converse
+returned `unsupported_claims` as the *string* `'["claim a", "claim b"]'` instead of a list,
+and Pydantic correctly rejected it. Fixed with a `@field_validator(mode="before")` that
+coerces — deliberately *not* by loosening the annotation to `list[str] | str`, so the
+schema shown to the model stays a proper array and every downstream consumer still gets a
+list. The lesson: structured output constrains the model, it does not *guarantee* the
+provider's serialisation.
+
+**2. One bad response destroyed all 38 judgements.** The judging loop had no per-row
+`try/except`, so that single `ValidationError` propagated out of `main()` after ~20 minutes
+of Bedrock calls, and the report was never printed. `generate_answers` already had the
+guard; the judging loop did not. Fixed, and `aggregate` counts error rows in `n_errors` so
+a partial run reports as partial instead of silently averaging over 37 of 38.
+
+The second one is the more interesting failure. A harness that *crashes* is loud. The
+version of this bug that keeps going and quietly reports on 37 questions while claiming 38
+is silent — and that is the shape of every other bug in this project. Excluding error rows
+from the means *and* printing the count is what makes it visible either way.
+
+Third, minor but wasteful: `print()` without `flush=True` is block-buffered when stdout is
+a pipe, so a 15-minute run showed zero progress until it exited. Both loops now flush.
+
+**A claim-extraction bug the metric found in itself.** `_claim_for_marker` originally ran
+to the end of the *line*, so on `"…saves state [1]. Then more prose [2]."` the claim for
+`[1]` swallowed the sentence belonging to `[2]`. Combined with "partial support is not
+support", that depressed citation precision on every multi-sentence line (0.667 → 0.750 on
+the smoke set once fixed). It now stops at the sentence end *or* newline, whichever comes
+first — and when a marker sits alone on a line (the generator does this after a code fence,
+`"```\n[3][4]"`) it widens to the preceding paragraph, because a claim of literally `"[3][4]"`
+contains no assertion and the judge rightly returned `supported=False` for it. **A metric
+can fail by measuring its own preprocessing.**
+
+### Known limitations
+
+- **n=38 with one judge.** No inter-rater agreement, no human-labelled subset to validate
+  the judge against. The scores are self-consistent, not externally calibrated.
+- **Deduplicating markers loses per-instance information.** An answer citing `[1]` five
+  times is judged once, using the first claim. Cuts ~250 Bedrock calls to ~126, but a
+  later mis-citation of the same source is missed.
+- **Judge and generator are different models** (Sonnet 4.6 vs Sonnet 5), which avoids the
+  worst of self-preference bias but does not eliminate family bias.
+- **Faithfulness is measured against retrieved context, not against truth.** An answer
+  that faithfully reports a wrong document scores 5. That is the correct definition of
+  groundedness and a real ceiling on what this metric can tell you.
 
 ---
 

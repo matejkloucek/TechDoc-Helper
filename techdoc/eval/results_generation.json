@@ -1,0 +1,1533 @@
+{
+  "aggregate": {
+    "n": 38,
+    "faithfulness": 4.789,
+    "relevance": 4.632,
+    "citation_precision": 0.876,
+    "pct_with_citations": 0.974,
+    "pct_invalid_markers": 0.026,
+    "n_errors": 0,
+    "by_type": {
+      "doc": {
+        "n": 19,
+        "faithfulness": 4.895,
+        "relevance": 4.737,
+        "citation_precision": 0.883,
+        "pct_with_citations": 0.947,
+        "pct_invalid_markers": 0.0
+      },
+      "code": {
+        "n": 19,
+        "faithfulness": 4.684,
+        "relevance": 4.526,
+        "citation_precision": 0.87,
+        "pct_with_citations": 1.0,
+        "pct_invalid_markers": 0.053
+      }
+    }
+  },
+  "routing": {
+    "n": 38,
+    "strict": 0.316,
+    "lenient": 0.947,
+    "both_rate": 0.632,
+    "confusion": {
+      "doc->both": 14,
+      "doc->docs": 3,
+      "doc->code": 2,
+      "code->code": 9,
+      "code->both": 10
+    }
+  },
+  "per_query": [
+    {
+      "qid": "q001",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 5,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 19.1,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context chunks [1], [2], and [4]. The four decision types, the interrupt mechanism, the persistence layer, the checkpointer requirement, the conditional interrupt predicate behaviour, and the code snippet are all verbatim or close paraphrases of the context.",
+        "relevance_reason": "The answer directly and completely addresses both parts of the question: it explains how HITL middleware pauses agent execution (via an interrupt that halts execution and saves graph state using LangGraph's persistence layer) and lists all four decision options available to the human reviewer (approve, edit, reject, respond).",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "If intervention is needed, it issues an @[interrupt] that halts execution, and the graph state is saved using LangGraph's persistence layer, so execution can pause safely and resume later [1].",
+            "supported": true,
+            "reason": "Source [1] contains the exact claim verbatim: \"If intervention is needed, the middleware issues an @[interrupt] that halts execution. The graph state is saved using LangGraph's persistence layer, so execution can pause safely and resume later.\""
+          },
+          {
+            "n": 4,
+            "claim": "This requires a checkpointer to maintain state across interruptions [4].",
+            "supported": true,
+            "reason": "Source [4] explicitly states \"Human-in-the-loop middleware requires a checkpointer to maintain state across interruptions,\" which directly substantiates the claim."
+          },
+          {
+            "n": 2,
+            "claim": "Calls where the predicate returns `False` run without interrupting, while calls where it returns `True` (or where `when` is omitted) pause as usual [2].",
+            "supported": true,
+            "reason": "The source explicitly states that when the predicate returns False the call runs without interrupting, and when it returns True or when `when` is omitted the call pauses as usual \u2014 exactly matching the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q002",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 4,
+      "n_markers": 14,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.75,
+      "elapsed_s": 16.9,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The answer accurately describes importing `get_stream_writer` from `langgraph.config` [1][2][3], the `@after_agent` decorator with `can_jump_to=[\"end\"]` [1][2], the function signature with `AgentState` and `Runtime` [1][2][5], the writer usage pattern [3], and the `stream_mode=\"custom\"` consumption pattern [3]. The answer also explicitly acknowledges what is NOT shown in the context (the exact invocation of `stream_writer(...)` inside the guardrail body), which is an honest and grounded statement.",
+        "relevance_reason": "The answer directly addresses the question by explaining how to use get_stream_writer() inside an after_agent hook for a model-based safety guardrail, including imports, code patterns, and consumption. It adds some extra material (e.g., consuming events with stream_mode=\"custom\") that wasn't explicitly asked for, but this is closely related and useful context rather than truly off-topic content.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the context, you can use `get_stream_writer()` inside an `after_agent` hook the same way you'd use it in a tool: import it from `langgraph.config`, call it to get a writer, and then call the writer with any custom data you want to stream [1][3].",
+            "supported": true,
+            "reason": "Source [1] explicitly shows get_stream_writer imported from langgraph.config and used inside an after_agent hook, directly substantiating the claim."
+          },
+          {
+            "n": 3,
+            "claim": "Based on the context, you can use `get_stream_writer()` inside an `after_agent` hook the same way you'd use it in a tool: import it from `langgraph.config`, call it to get a writer, and then call the writer with any custom data you want to stream [1][3].",
+            "supported": false,
+            "reason": "Source [3] only demonstrates using get_stream_writer() inside a tool, not inside an after_agent hook as the claim asserts."
+          },
+          {
+            "n": 2,
+            "claim": "last_message = state[\"messages\"][-1]\n    if not isinstance(last_message, AIMessage):\n        return None\n```\n[1][2]",
+            "supported": true,
+            "reason": "Source [2] contains the exact code snippet showing `last_message = state[\"messages\"][-1]` followed by `if not isinstance(last_message, AIMessage): return None`."
+          },
+          {
+            "n": 5,
+            "claim": "- The `after_agent` hook is decorated with `can_jump_to=[\"end\"]`, and receives `state: AgentState` and `runtime: Runtime`, same as other middleware hooks [1][2][5].",
+            "supported": true,
+            "reason": "Source [5] explicitly shows `after_agent` decorated with `@hook_config(can_jump_to=[\"end\"])` and receiving `state: AgentState` and `runtime: Runtime` as parameters."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q003",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 9,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.75,
+      "elapsed_s": 12.1,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context: the mapping of classifications to Send objects, the code implementation, the wiring via add_conditional_edges, parallel execution when multiple Send objects are returned, and the omission of irrelevant sources are all explicitly stated in the context chunks.",
+        "relevance_reason": "The answer directly and completely explains how route_to_agents converts classifications into Send objects, including the exact mapping logic, a code example, how it integrates with the graph, and how parallel execution is achieved.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the context, the `route_to_agents` function takes the list of `classifications` from the router state and maps each classification into a `Send` object, which specifies both the target node (the `source`) and the input state to pass to that node (the `query`) [1][2].",
+            "supported": true,
+            "reason": "Source [1] explicitly states that `route_to_agents` maps classifications to `Send` objects, where each `Send` specifies the target node (the `source`) and the state to pass (the `query`), matching the claim exactly."
+          },
+          {
+            "n": 2,
+            "claim": "Based on the context, the `route_to_agents` function takes the list of `classifications` from the router state and maps each classification into a `Send` object, which specifies both the target node (the `source`) and the input state to pass to that node (the `query`) [1][2].",
+            "supported": false,
+            "reason": "Source [2] only shows the graph wiring and states that route_to_agents returns multiple Send objects for parallel execution, but does not describe the function's internal logic of mapping classifications from router state into Send objects specifying a target node (source) and input state (query)."
+          },
+          {
+            "n": 3,
+            "claim": "Specifically, for each classification dictionary `c` in `state[\"classifications\"]`, it creates `Send(c[\"source\"], {\"query\": c[\"query\"]})` [3][4].",
+            "supported": true,
+            "reason": "Source [3] explicitly shows the list comprehension `[Send(c[\"source\"], {\"query\": c[\"query\"]}) for c in state[\"classifications\"]]`, which directly confirms the claim that for each classification dictionary `c` in `state[\"classifications\"]`, it creates `Send(c[\"source\"], {\"query\": c[\"query\"]})`."
+          },
+          {
+            "n": 4,
+            "claim": "Specifically, for each classification dictionary `c` in `state[\"classifications\"]`, it creates `Send(c[\"source\"], {\"query\": c[\"query\"]})` [3][4].",
+            "supported": true,
+            "reason": "Source [4] explicitly shows the `route_to_agents` function iterating over `state[\"classifications\"]` and creating `Send(c[\"source\"], {\"query\": c[\"query\"]})` for each classification dictionary `c`."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q004",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 3,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 11.6,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by context [1]. The answer accurately quotes and paraphrases the tutorial's design choice, the production recommendation for the `before_agent` hook, the reasons for using it (periodic refresh, handling additions/modifications), and even correctly acknowledges that the hook's implementation details are not in the provided context.",
+        "relevance_reason": "The answer directly and completely addresses both parts of the question: why the tutorial uses `__init__` (simplicity) and what the production consideration is for using `before_agent` instead (dynamic refresh of skills to reflect up-to-date changes).",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on [1], the tutorial loads the skill list in `__init__` **for simplicity**.",
+            "supported": true,
+            "reason": "Source [1] explicitly states \"This tutorial loads the skill list in `__init__` for simplicity,\" directly matching the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q005",
+      "type": "doc",
+      "route": "docs",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 7,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.8,
+      "elapsed_s": 14.5,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context chunks. The API key variable names, Ollama local requirement, .env auto-loading via `import \"dotenv/config\"`, the provider table entries, and the compatible-API config file example all map precisely to the corresponding context passages.",
+        "relevance_reason": "The answer directly and completely addresses the question by providing the specific environment variable names for each requested provider (OpenAI, Google Gemini, Anthropic, and Ollama), along with how to set them via shell export or .env file.",
+        "citation_details": [
+          {
+            "n": 2,
+            "claim": "No API key is needed \u2014 Ollama must be running locally instead (https://ollama.com) [2].",
+            "supported": true,
+            "reason": "The source's Ollama tab explicitly states \"Local: Ollama must be running (https://ollama.com)\" with no API key export command, directly confirming that no API key is needed and that Ollama must be running locally."
+          },
+          {
+            "n": 1,
+            "claim": "For Deep Agents specifically, the same variables apply, and you can also define them in a `.env` file that is auto-loaded via `import \"dotenv/config\"` [1][3]:",
+            "supported": true,
+            "reason": "Source [1] explicitly states that a `.env` file can be used and that the code loads it automatically via `import \"dotenv/config\"`, directly substantiating the claim."
+          },
+          {
+            "n": 3,
+            "claim": "For Deep Agents specifically, the same variables apply, and you can also define them in a `.env` file that is auto-loaded via `import \"dotenv/config\"` [1][3]:",
+            "supported": false,
+            "reason": "Source [3] discusses environment variables for model providers and LangSmith in a RAG tutorial context, but makes no mention of \"Deep Agents,\" a `.env` file being auto-loaded, or the `import \"dotenv/config\"` mechanism."
+          },
+          {
+            "n": 5,
+            "claim": "Additionally, the provider table for Deep Agents confirms the credential env vars per provider [5]:",
+            "supported": true,
+            "reason": "Source [5] is exactly the provider table for Deep Agents listing credential environment variables per provider, directly substantiating the claim."
+          },
+          {
+            "n": 4,
+            "claim": "If you're using a provider with an OpenAI- or Anthropic-compatible API but a different endpoint, you can instead configure a custom `base_url` and `api_key_env` in a config file rather than exporting the standard variable [4]:",
+            "supported": true,
+            "reason": "Source [4] explicitly shows that for OpenAI- or Anthropic-compatible APIs, you can configure a custom `base_url` and `api_key_env` in a config file (TOML format) to point to a different provider endpoint, directly substantiating the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q006",
+      "type": "doc",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 1,
+      "n_markers": 0,
+      "n_invalid_markers": 0,
+      "has_citations": false,
+      "citation_precision": 1.0,
+      "elapsed_s": 4.5,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "The answer is an explicit refusal making no factual claims, so there is nothing to contradict or be unsupported by the (empty) context.",
+        "relevance_reason": "The assistant explicitly states it cannot find relevant information and provides no answer to the question about precedence order for resolving general configuration options in Deep Agents Code.",
+        "citation_details": []
+      }
+    },
+    {
+      "qid": "q007",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 5,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 13.8,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context: the description of RecursiveCharacterTextSplitter, the add_start_index parameter and its effect, the Python code example, the JS availability via @langchain/textsplitters, and the caveat about the JS version not mentioning add_start_index are all grounded in contexts [6], [7], and [8].",
+        "relevance_reason": "The answer directly and completely addresses both parts of the question: how to split documents using RecursiveCharacterTextSplitter and how to preserve the starting character index as metadata using add_start_index=True, with a working code example.",
+        "citation_details": [
+          {
+            "n": 6,
+            "claim": "To split loaded documents into smaller chunks using `RecursiveCharacterTextSplitter`, and preserve the starting character index of each chunk as metadata, use the `add_start_index=True` parameter [6].",
+            "supported": true,
+            "reason": "Source [6] explicitly states that `add_start_index=True` is used with `RecursiveCharacterTextSplitter` to preserve the starting character index of each split document as metadata, directly substantiating the claim."
+          },
+          {
+            "n": 7,
+            "claim": "`RecursiveCharacterTextSplitter` recursively splits a document using common separators like new lines until each chunk is the appropriate size, and it is the recommended text splitter for generic text use cases [6][7].",
+            "supported": true,
+            "reason": "Source [7] explicitly states that RecursiveCharacterTextSplitter recursively splits documents using common separators like new lines until each chunk is the appropriate size, and that it is the recommended TextSplitter for generic text use cases."
+          },
+          {
+            "n": 8,
+            "claim": "For JavaScript, `RecursiveCharacterTextSplitter` is available via `@langchain/textsplitters`, but the context provided does not mention an equivalent `add_start_index` option for the JS version [8].",
+            "supported": true,
+            "reason": "Source [8] shows the JS RecursiveCharacterTextSplitter imported from @langchain/textsplitters with only chunkSize and chunkOverlap options, and no add_start_index equivalent is mentioned."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q008",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 6,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 12.2,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context: the raw iteration pattern and event dict structure (event[\"method\"], event[\"params\"][\"namespace\"], event[\"params\"][\"data\"]) come from [6] and [7]; the v3 override by CompiledGraph is stated in [4]; and the transformer classes (CheckpointsTransformer, UpdatesTransformer, etc.) are listed in [1].",
+        "relevance_reason": "The answer directly and completely addresses the question by providing the exact method call, parameter usage, and two concrete code examples showing how to stream raw protocol events using stream_events with version=\"v3\".",
+        "citation_details": [
+          {
+            "n": 6,
+            "claim": "Each yielded item is a protocol event dict with `event[\"method\"]` and `event[\"params\"]` (including `namespace` and `data`) [6][7].",
+            "supported": true,
+            "reason": "Source [6] explicitly shows each yielded event being accessed via event[\"method\"] and event[\"params\"][\"namespace\"] and event[\"params\"][\"data\"], confirming the claim that each item is a protocol event dict with those exact keys."
+          },
+          {
+            "n": 7,
+            "claim": "Each yielded item is a protocol event dict with `event[\"method\"]` and `event[\"params\"]` (including `namespace` and `data`) [6][7].",
+            "supported": true,
+            "reason": "Source [7] explicitly shows protocol events with `event[\"method\"]` and `event[\"params\"]` containing both `namespace` and `data` keys, directly substantiating the claim."
+          },
+          {
+            "n": 4,
+            "claim": "Note that `stream_events(version=\"v3\")` is a method that, per the `langchain_core.runnables.base.stream_events` signature, is overridden by classes implementing the v3 streaming protocol such as `CompiledGraph` [4].",
+            "supported": true,
+            "reason": "The source's docstring explicitly states that for version='v3', subclasses implementing the v3 streaming protocol (including CompiledGraph) override this method, directly substantiating the claim."
+          },
+          {
+            "n": 1,
+            "claim": "These raw events are the same ones consumed internally by things like `CheckpointsTransformer`, `UpdatesTransformer`, etc., described in the `langgraph.stream` module [1].",
+            "supported": true,
+            "reason": "Source [1] is the `langgraph.stream` module and explicitly exports both `CheckpointsTransformer` and `UpdatesTransformer` (among others), confirming they are described within that module."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q009",
+      "type": "doc",
+      "route": "docs",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 6,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.8,
+      "elapsed_s": 10.6,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The two LLM limitations (finite context, static knowledge) come from [5]; the integration of retrieval with generation for grounded answers comes from [1]; the use of embeddings/vector stores and combining questions with retrieved context into LLM prompts comes from [2] and [3]; the search-engine-then-RAG layering approach comes from [3]; and the Deep Agents primitives list (custom retrieval tools, filesystem backends, subagents, skills, grading rubrics) and their configuration factors come verbatim from [4].",
+        "relevance_reason": "The answer directly and completely addresses the question by explaining how retrieval serves as the foundation for RAG in LangChain, describing how retrieval addresses LLM limitations, how RAG integrates retrieval with generation, and how LangChain's abstractions support this relationship.",
+        "citation_details": [
+          {
+            "n": 5,
+            "claim": "LLMs have two key limitations\u2014finite context and static knowledge frozen at training time\u2014and retrieval addresses these by fetching relevant external knowledge at query time [5].",
+            "supported": true,
+            "reason": "Source [5] explicitly states both limitations (finite context and static/frozen knowledge) and directly states that retrieval addresses them by fetching relevant external knowledge at query time."
+          },
+          {
+            "n": 1,
+            "claim": "In other words, the retrieval pipeline becomes the foundation for a broader system that combines search with generation [1].",
+            "supported": true,
+            "reason": "The source explicitly states \"The retrieval pipeline becomes a foundation for a broader system that combines search with generation,\" which is a direct match to the claim."
+          },
+          {
+            "n": 2,
+            "claim": "In practice, this means retrievers (built using LangChain's embedding and vector store abstractions) can be incorporated into more complex applications like RAG systems, which combine a given question with retrieved context into a prompt for an LLM [2][3].",
+            "supported": true,
+            "reason": "Source [2] explicitly states that retrievers can be incorporated into more complex applications such as RAG systems that combine a given question with retrieved context into a prompt for an LLM, which directly matches the claim."
+          },
+          {
+            "n": 3,
+            "claim": "In practice, this means retrievers (built using LangChain's embedding and vector store abstractions) can be incorporated into more complex applications like RAG systems, which combine a given question with retrieved context into a prompt for an LLM [2][3].",
+            "supported": false,
+            "reason": "Source [3] confirms that LangChain's embedding and vector store abstractions support retrieval for RAG workflows, but does not specifically describe combining a question with retrieved context into a prompt for an LLM, which is the specific mechanism asserted in the claim."
+          },
+          {
+            "n": 4,
+            "claim": "Beyond core LangChain, this same retrieval-to-RAG relationship extends to more advanced setups\u2014such as **Deep Agents**, which provide primitives for RAG (custom retrieval tools, filesystem backends, subagents, skills, and grading rubrics) that can be combined depending on corpus size, latency needs, and grounding requirements [4].",
+            "supported": true,
+            "reason": "Source [4] explicitly states that Deep Agents provides primitives for RAG including custom retrieval tools, a filesystem backend, subagents, skills, and grading rubrics, and that they can be combined depending on corpus size, latency requirements, and grounding requirements \u2014 matching the claim precisely."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q010",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 4,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 9.5,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the context. The usage of `client.get_resources(\"server_name\", uris=[...])`, the `load_mcp_resources` function with a session and `uris` parameter, the default behavior of loading all resources without `uris`, and the code examples all match exactly what is shown in context chunks [2] and [3].",
+        "relevance_reason": "The answer directly and completely addresses the question by explaining exactly how to load specific MCP resources by URI using both `client.get_resources()` with the `uris` parameter and `load_mcp_resources()` with the `uris` argument, including code examples.",
+        "citation_details": [
+          {
+            "n": 2,
+            "claim": "To load specific MCP resources by URI instead of loading all of them, use `client.get_resources(\"server_name\", uris=[...])`, passing the specific URI(s) you want [2]:",
+            "supported": true,
+            "reason": "Source [2] explicitly shows `client.get_resources(\"server_name\", uris=[\"file:///path/to/file.txt\"])` as the way to load specific MCP resources by URI instead of all resources, directly matching the claim."
+          },
+          {
+            "n": 3,
+            "claim": "By default, without the `uris` argument, `client.get_resources(\"server_name\")` loads all resources from a server [3].",
+            "supported": true,
+            "reason": "Source [3] explicitly shows that calling `client.get_resources(\"server_name\")` without a `uris` argument loads all resources from a server, as indicated by the comment \"# Load all resources from a server\" in the code example."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q011",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 4,
+      "relevance": 5,
+      "n_markers": 19,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 13.1,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Nearly all claims are directly supported by the context. However, the answer states that `llm` \"can be created with something like `new ChatAnthropic({ model: 'gpt-5.5' })`\" \u2014 while context [4] does show `new ChatAnthropic({ model: \"gpt-5.5\" })`, the class name `ChatAnthropic` is used with a `gpt-5.5` model identifier, which is a GPT (OpenAI) model, not an Anthropic model. The context reproduces this (likely intentional or erroneous) pairing without comment, so the answer is faithfully reproducing what the context says, making it a borderline case. All other claims are fully grounded.",
+        "relevance_reason": "The answer directly and completely addresses the question by showing exactly how to use `create_agent` to build a calendar sub-agent with both availability-checking and event-scheduling tools, including system prompt guidance for natural language interpretation, in both Python and JavaScript.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "You can build a calendar agent using `create_agent`, giving it two tools (`create_calendar_event` and `get_available_time_slots`) along with a system prompt instructing it how to interpret natural language scheduling requests [1][2].",
+            "supported": true,
+            "reason": "Source [1] explicitly shows `create_agent` being called with `tools=[create_calendar_event, get_available_time_slots]` and a `system_prompt` instructing the agent to interpret natural language scheduling requests, directly substantiating the claim."
+          },
+          {
+            "n": 2,
+            "claim": "You can build a calendar agent using `create_agent`, giving it two tools (`create_calendar_event` and `get_available_time_slots`) along with a system prompt instructing it how to interpret natural language scheduling requests [1][2].",
+            "supported": true,
+            "reason": "Source [2] explicitly shows `create_agent` being called with both `create_calendar_event` and `get_available_time_slots` as tools and a system prompt instructing it to parse natural language scheduling requests."
+          },
+          {
+            "n": 4,
+            "claim": "`llm` can be created with something like `new ChatAnthropic({ model: \"gpt-5.5\" })` [4].",
+            "supported": true,
+            "reason": "Source [4] explicitly shows `const llm = new ChatAnthropic({ model: \"gpt-5.5\" });`, which directly matches the claim."
+          },
+          {
+            "n": 3,
+            "claim": "- **`get_available_time_slots`** is used to check availability when the request requires it [1][3].",
+            "supported": true,
+            "reason": "Source [3] explicitly states \"Use get_available_time_slots to check availability when needed,\" which directly substantiates the claim."
+          },
+          {
+            "n": 5,
+            "claim": "This calendar agent can later be wrapped as a tool (e.g., `schedule_event`) so a supervisor agent can invoke it using natural language requests [5], but the core sub-agent itself is created exactly as shown above using `create_agent`/`createAgent` [1][2][3][4].",
+            "supported": true,
+            "reason": "Source [5] explicitly shows wrapping the calendar sub-agent as a `schedule_event` tool that a supervisor can invoke using natural language requests, directly substantiating that specific part of the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q012",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 11,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.8,
+      "elapsed_s": 18.3,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The episodic memory description, user_id extraction via runtime, the Python code example, the checkpointer mechanism, the metadata filter mention, and the consolidation agent with time-based filtering are all explicitly present in the context chunks.",
+        "relevance_reason": "The answer directly and completely addresses the question by providing a working code example that uses both the LangGraph SDK client and ToolRuntime to search past conversation threads, explaining exactly how to extract the user identity from runtime.server_info.user.identity and use it with client.threads.search.",
+        "citation_details": [
+          {
+            "n": 6,
+            "claim": "This is described as an implementation of **episodic memory** for Deep Agents [6].",
+            "supported": true,
+            "reason": "Source [6] is explicitly titled \"Episodic memory\" and directly states that Deep Agents use checkpointers as the mechanism supporting episodic memory, confirming the claim."
+          },
+          {
+            "n": 4,
+            "claim": "Here's the example from the context [4]:",
+            "supported": true,
+            "reason": "The claim reproduces a code example, and SOURCE [4] contains exactly that code block with the same imports, function definition, and logic."
+          },
+          {
+            "n": 5,
+            "claim": "You can further scope the search by adjusting the metadata filter (e.g., by user or organization), as mentioned in the context, though the full filtering example itself isn't included here [5].",
+            "supported": true,
+            "reason": "Source [5] explicitly states \"You can scope thread search by user or organization by adjusting the metadata filter,\" directly substantiating the claim about scoping search by adjusting the metadata filter by user or organization."
+          },
+          {
+            "n": 7,
+            "claim": "For a variant scoped to recent activity (e.g., last 6 hours), a consolidation agent example shows adding `updatedAfter`/time-based filtering alongside the `user_id` metadata filter [7][8] (shown in TypeScript in the given context, but the same pattern \u2014 get user identity from runtime, then call `threads.search` with metadata and a time filter \u2014 applies).",
+            "supported": false,
+            "reason": "The source snippet shows a Python consolidation agent using `runtime.server_info.user.identity` for user identity, but it is cut off before showing any `threads.search` call with `updatedAfter`/time-based filtering or `user_id` metadata filter \u2014 the claim specifically asserts a TypeScript example with those combined filters, which is not present in this source."
+          },
+          {
+            "n": 8,
+            "claim": "For a variant scoped to recent activity (e.g., last 6 hours), a consolidation agent example shows adding `updatedAfter`/time-based filtering alongside the `user_id` metadata filter [7][8] (shown in TypeScript in the given context, but the same pattern \u2014 get user identity from runtime, then call `threads.search` with metadata and a time filter \u2014 applies).",
+            "supported": true,
+            "reason": "Source [8] contains a TypeScript consolidation agent example that retrieves user identity from runtime, then calls `threads.search` with both a `metadata: { userId }` filter and an `updatedAfter` time-based filter scoped to the last 6 hours, directly substantiating the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q013",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 8,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.667,
+      "elapsed_s": 14.0,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The locations, loading behavior, ordering of instruction sources, and the purpose/content distinctions for global vs. project AGENTS.md files all map precisely to chunks [1], [2], and [3].",
+        "relevance_reason": "The answer directly and completely addresses both parts of the question: it explains the difference between global and project-level AGENTS.md files (purpose, content, and scope) and describes exactly how they are loaded (locations, loading triggers, and order of appending to the system prompt).",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "- **Global**: `~/.deepagents/<agent_name>/AGENTS.md` \u2014 loaded every session [1]",
+            "supported": true,
+            "reason": "Source [1] explicitly states that the Global AGENTS.md file is located at `~/.deepagents/<agent_name>/AGENTS.md` and is \"loaded every session,\" directly matching the claim."
+          },
+          {
+            "n": 3,
+            "claim": "More specifically, all instruction sources are *combined* rather than one overriding another, in this order [3]:",
+            "supported": true,
+            "reason": "Source [3] explicitly states \"All instruction sources are combined (not overridden)\" and lists the four sources in the same order described in the claim."
+          },
+          {
+            "n": 2,
+            "claim": "Use the **global** `AGENTS.md` (`~/.deepagents/agent/AGENTS.md`) for [2]:",
+            "supported": false,
+            "reason": "The claim is incomplete \u2014 it states to use the global AGENTS.md \"for [2]\" without specifying what it should be used for, so the full claim cannot be verified as substantiated by the source."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q014",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 10,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.5,
+      "elapsed_s": 15.3,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the provided context snippets. The description of cursor behavior, `_ensure_started`, `_request_more`, error/done handling, the LangGraph `EventLog` convention, the async `_arequest_more` variant, and the raw events pattern are all explicitly present in [1], [2], [3], and [4].",
+        "relevance_reason": "The answer directly and completely addresses the question, explaining exactly how the `__iter__` method yields deltas and how it requests more data via `_request_more` when the cursor catches up to the buffered deltas, including the full code snippet and step-by-step logic.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on [1], the `__iter__` method (part of `SyncProjection`, described in [2]) works as a pull-based, replay-capable iterator over buffered deltas:",
+            "supported": true,
+            "reason": "The source shows `__iter__` using a cursor over `self._deltas` (buffered deltas, enabling replay) and calling `_request_more` when the cursor catches up, confirming the pull-based, replay-capable iterator behavior over buffered deltas."
+          },
+          {
+            "n": 2,
+            "claim": "Based on [1], the `__iter__` method (part of `SyncProjection`, described in [2]) works as a pull-based, replay-capable iterator over buffered deltas:",
+            "supported": false,
+            "reason": "Source [2] confirms that SyncProjection is a pull-based, replay-capable iterator over buffered deltas, but it does not contain or describe the `__iter__` method itself \u2014 only the class docstring and `__init__`/`set_start` methods are shown."
+          },
+          {
+            "n": 3,
+            "claim": "Note: [3] shows a nearly identical `__iter__` pattern but for raw protocol events (`self._events` instead of `self._deltas`), and [4] shows an analogous async version that drains an `_arequest_more` pump \u2014 but the specific method asked about (deltas in `chat_model_stream.py`) is the one shown in [1].",
+            "supported": true,
+            "reason": "Source [3] shows an `__iter__` method that iterates over `self._events` (not `self._deltas`), confirming the claim that it uses a nearly identical `__iter__` pattern but for raw protocol events via `self._events`."
+          },
+          {
+            "n": 4,
+            "claim": "Note: [3] shows a nearly identical `__iter__` pattern but for raw protocol events (`self._events` instead of `self._deltas`), and [4] shows an analogous async version that drains an `_arequest_more` pump \u2014 but the specific method asked about (deltas in `chat_model_stream.py`) is the one shown in [1].",
+            "supported": false,
+            "reason": "Source [4] actually accesses `proj._deltas` (not `self._events`), and while it does reference an `_arequest_more` pump in its docstring, the code shown drains `_deltas` \u2014 contradicting the claim that source [4] shows an async version draining an `_arequest_more` pump analogously to a raw protocol events (`self._events`) pattern."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q015",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 4,
+      "relevance": 5,
+      "n_markers": 5,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 13.3,
+      "detail": {
+        "unsupported_claims": [
+          "it doesn't raise errors on malformed input (e.g., missing \"function\" key), instead substituting None for missing name/args fields, which makes it suitable for streaming contexts where tool call data may arrive incomplete or partial"
+        ],
+        "faithfulness_reason": "Nearly every claim is directly supported by the context. The one mild over-generalisation is the interpretive claim that the parser \"doesn't raise errors on malformed input\" and is \"suitable for streaming contexts where tool call data may arrive incomplete or partial\" \u2014 the context only says \"best-effort\" and shows the None-substitution logic, but never explicitly states it is designed for streaming or that it suppresses errors. The merging claim is supported by context [5].",
+        "relevance_reason": "The answer directly and completely addresses the question by explaining exactly what default_tool_chunk_parser does step-by-step, including how it processes each raw tool call dict, handles the \"function\" key, constructs ToolCallChunk objects, and returns the result \u2014 with supporting code.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the context, `default_tool_chunk_parser` performs \"best-effort parsing of tool chunks\" [1] to convert raw tool call dicts into a list of `ToolCallChunk` objects.",
+            "supported": true,
+            "reason": "The source explicitly defines `default_tool_chunk_parser` with the docstring \"Best-effort parsing of tool chunks,\" takes a list of raw tool call dicts as input, and returns a list of `ToolCallChunk` objects, directly substantiating the claim."
+          },
+          {
+            "n": 5,
+            "claim": "The resulting `ToolCallChunk` objects can later be merged together (e.g., via `AIMessageChunk.__add__`) based on matching `index` values, as described in the `ToolCallChunk` type definition [5].",
+            "supported": true,
+            "reason": "Source [5] explicitly states that ToolCallChunks are merged via AIMessageChunk.__add__ based on matching (equal and not None) index values, directly substantiating the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q016",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 4,
+      "relevance": 5,
+      "n_markers": 9,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 19.7,
+      "detail": {
+        "unsupported_claims": [
+          "when an annotation is a generic TypeVar (e.g., T), if default_to_bound=True, the function will resolve it to the TypeVar's bound type instead of leaving it as the raw TypeVar"
+        ],
+        "faithfulness_reason": "Nearly every claim is directly supported by the context. The one mild over-generalisation is the explanation of `default_to_bound=True`: the answer states it \"will resolve it to the TypeVar's bound type instead of leaving it as the raw TypeVar,\" which is a reasonable inference from the docstring (\"Whether to default to the bound of a TypeVar if it exists\") but the actual resolution logic is not shown in the provided snippets. The answer itself acknowledges this gap, making it a mild over-generalisation rather than a fabrication.",
+        "relevance_reason": "The answer directly and completely addresses both parts of the question: it explains what get_all_basemodel_annotations does (retrieves all annotations from a Pydantic BaseModel and its parent classes) and clearly explains the purpose of the default_to_bound parameter (controls whether to resolve a TypeVar to its bound type instead of leaving it as a raw TypeVar).",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the context, `get_all_basemodel_annotations` is a utility function in `libs/core/langchain_core/tools/base.py` that **retrieves all annotations from a Pydantic `BaseModel` and its parent classes** [1].",
+            "supported": true,
+            "reason": "Source [1] shows the function `get_all_basemodel_annotations` with a docstring explicitly stating it \"Get all annotations from a Pydantic `BaseModel` and its parents,\" directly substantiating the claim."
+          },
+          {
+            "n": 2,
+            "claim": "The function gets the model's fields via `get_fields(cls)`, builds an alias map (mapping field aliases to field names), then iterates over the constructor's signature parameters (`inspect.signature(cls).parameters`) to build the annotations dict \u2014 skipping any parameters not in `fields` or `alias_map` (e.g., hidden init args injected by Pydantic's `Config`, such as `extra_data` when `extra=\"allow\"`) [1][2].",
+            "supported": true,
+            "reason": "Source [2] explicitly shows iterating over `inspect.signature(cls).parameters`, skipping entries not in `fields` or `alias_map` (with a comment about hidden init args like `extra_data` from `extra=\"allow\"`), and building the `annotations` dict using `alias_map.get(name, name)` as the key."
+          },
+          {
+            "n": 3,
+            "claim": "```python\nif self.args_schema is not None and not isinstance(self.args_schema, dict):\n    try:\n        annotations = get_all_basemodel_annotations(self.args_schema)\n        for field_name, field_type in annotations.items():\n            if _is_injected_arg_type(field_type):\n                filtered_keys.add(field_name)\n    except Exception:\n        _logger.debug(\n            \"Failed to get args_schema annotations for filtering.\",\n            exc_info=True,\n        )\n```\n[3]",
+            "supported": true,
+            "reason": "The source contains the exact code block shown in the claim, including the condition, try/except structure, loop logic, and logger debug message."
+          },
+          {
+            "n": 4,
+            "claim": "```python\nfull_schema = self.get_input_schema()\nfields = []\nfor name, type_ in get_all_basemodel_annotations(full_schema).items():\n    if not _is_injected_arg_type(type_):\n        fields.append(name)\nsubset_model = _create_subset_model(\n    self.name, full_schema, fields, fn_description=self.description\n)\n```\n[4]",
+            "supported": true,
+            "reason": "Source [4] contains the exact code block shown in the claim, including the same variable names, logic, and function calls."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q017",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 8,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.667,
+      "elapsed_s": 364.4,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The field definitions, types, defaults, and descriptions all match context [1] exactly, the input schema construction logic matches context [4] exactly, and the mention of additional chat prompt template fields matches context [2].",
+        "relevance_reason": "The answer directly and completely identifies all three fields (input_variables, optional_variables, input_types) with their types, default values, and descriptions, exactly addressing what the question asked.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the context, `BasePromptTemplate` defines three fields for this purpose [1]:",
+            "supported": true,
+            "reason": "Source [1] shows BasePromptTemplate defining exactly three fields: input_variables, optional_variables, and input_types."
+          },
+          {
+            "n": 4,
+            "claim": "These fields are used together, for example, to build the input schema \u2014 required variables use their type from `input_types` (defaulting to `str`) with no default, while optional variables use their type with a default of `None` [4]:",
+            "supported": true,
+            "reason": "The source code explicitly shows required variables using `self.input_types.get(k, str)` with `...` (no default) and optional variables using `self.input_types.get(k, str)` with `None` as the default, which directly substantiates the claim."
+          },
+          {
+            "n": 2,
+            "claim": "The same three fields (`input_variables`, `optional_variables`, `input_types`) are also documented in the context of chat prompt templates, alongside `partial_variables` and `validate_template` [2].",
+            "supported": false,
+            "reason": "Source [2] documents all five fields (input_variables, optional_variables, input_types, partial_variables, validate_template) but does not specify that this is in the context of chat prompt templates; the claim's assertion about the \"chat prompt templates\" context is not substantiated by the source."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q018",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 3,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.5,
+      "elapsed_s": 9.6,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every claim in the answer is directly supported by the context. The fields of the RunInfo TypedDict (name, tags, metadata, run_type, inputs, parent_run_id, tool_call_id) with their types and descriptions match context [1] exactly. The note about the separate pydantic BaseModel RunInfo with only run_id: UUID kept for backwards compatibility is directly supported by context [5].",
+        "relevance_reason": "The answer directly and completely lists all fields in the RunInfo TypedDict from event_stream.py, including their types and whether they are required or optional, and even provides the full class definition for clarity.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the `RunInfo` TypedDict in `libs/core/langchain_core/tracers/event_stream.py` [1], the fields included are:",
+            "supported": false,
+            "reason": "The claim appears to be incomplete \u2014 it states \"the fields included are:\" but does not list any fields, so there is no specific assertion to verify against the source."
+          },
+          {
+            "n": 5,
+            "claim": "Note: this is distinct from the `RunInfo` **pydantic** `BaseModel` defined in `libs/core/langchain_core/outputs/run_info.py`, which only contains a single field, `run_id: UUID`, and is kept for backwards compatibility [5].",
+            "supported": true,
+            "reason": "Source [5] confirms that RunInfo is a pydantic BaseModel in libs/core/langchain_core/outputs/run_info.py with a single field `run_id: UUID`, kept for backwards compatibility with older versions of langchain_core."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q019",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 15,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.857,
+      "elapsed_s": 18.5,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The description of Send's arguments and behavior (nodes [3][8]), the code examples (nodes [1][2][5]), the reducer pattern (nodes [1][7]), and the add_conditional_edges usage (nodes [4][8]) are all explicitly present in the context.",
+        "relevance_reason": "The answer directly and completely addresses the question by explaining how to use `Send` with `add_conditional_edges` for dynamic fan-out, including a concrete joke-generation example that matches exactly what the developer asked about.",
+        "citation_details": [
+          {
+            "n": 3,
+            "claim": "`Send` is used within a conditional edge to dynamically invoke a node multiple times with different states \u2014 this is the core mechanism behind map-reduce patterns in LangGraph [3][8].",
+            "supported": true,
+            "reason": "Source [3] explicitly states that `Send` is used within a `StateGraph`'s conditional edges to dynamically invoke a node with a custom state, and directly describes the \"map-reduce\" workflow where the graph invokes the same node multiple times with different states, confirming the claim."
+          },
+          {
+            "n": 8,
+            "claim": "`Send` is used within a conditional edge to dynamically invoke a node multiple times with different states \u2014 this is the core mechanism behind map-reduce patterns in LangGraph [3][8].",
+            "supported": true,
+            "reason": "Source [8] explicitly states that LangGraph supports returning `Send` objects from conditional edges to invoke a node with different states, and identifies this as the core mechanism for map-reduce design patterns."
+          },
+          {
+            "n": 1,
+            "claim": "```python\n# Invoking with two subjects results in a generated joke for each\ngraph.invoke({\"subjects\": [\"cats\", \"dogs\"]})\n# {'subjects': ['cats', 'dogs'], 'jokes': ['Joke about cats', 'Joke about dogs']}\n```\n[1][2]",
+            "supported": false,
+            "reason": "Source [1] shows the graph setup but does not include the graph.invoke call or its output demonstrating the two-subject result."
+          },
+          {
+            "n": 2,
+            "claim": "```python\n# Invoking with two subjects results in a generated joke for each\ngraph.invoke({\"subjects\": [\"cats\", \"dogs\"]})\n# {'subjects': ['cats', 'dogs'], 'jokes': ['Joke about cats', 'Joke about dogs']}\n```\n[1][2]",
+            "supported": true,
+            "reason": "Source [2] contains the exact code snippet and comment shown in the claim, including the graph.invoke call and the expected output dictionary."
+          },
+          {
+            "n": 7,
+            "claim": "- Because `jokes` uses `Annotated[list[str], operator.add]` as a reducer, results from all the parallel `generate_joke` invocations are combined (added together) into the final state [1][7].",
+            "supported": true,
+            "reason": "Source [7] explicitly shows `jokes` defined as `Annotated[list[str], operator.add]` in the state, and the map-reduce pattern with parallel `generate_joke` invocations, confirming that results are combined via the `operator.add` reducer."
+          },
+          {
+            "n": 4,
+            "claim": "- This conditional edge is wired up the same way as any other, via `add_conditional_edges(source, path)`, where `path` is the callable (here, `continue_to_jokes`) that returns the destinations \u2014 in this case a sequence of `Send` objects rather than plain node names [4][8].",
+            "supported": true,
+            "reason": "Source [4] shows the `add_conditional_edges(source, path)` signature and documents that `path` is a callable returning one or more destination nodes (or sequences thereof), which substantiates the claim that the conditional edge is wired via `add_conditional_edges(source, path)` where `path` is the callable returning destinations."
+          },
+          {
+            "n": 5,
+            "claim": "graph.add_conditional_edges(\"node_a\", continue_to_jokes)\n```\n[5]",
+            "supported": true,
+            "reason": "Source [5] contains the exact line `graph.add_conditional_edges(\"node_a\", continue_to_jokes)` which directly matches the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q020",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 3,
+      "relevance": 5,
+      "n_markers": 14,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 19.4,
+      "detail": {
+        "unsupported_claims": [
+          "It then presumably uses these (return value, error, interrupts, and the `states` mapping of subgraph states) to construct enriched `PregelTask` entries reflecting what happened for each task, which are returned as the `tasks` field of a `StateSnapshot`."
+        ],
+        "faithfulness_reason": "The vast majority of the answer is well-grounded in the context, accurately describing the code in debug.py and main.py. However, the answer claims that tasks_w_writes \"presumably uses these (return value, error, interrupts, and the `states` mapping of subgraph states) to construct enriched `PregelTask` entries\" \u2014 the context only shows the extraction logic, not what is done with those values afterward. More importantly, the answer states the `StateSnapshot` includes \"the names of tasks that had no writes,\" which is supported by context [2]. The claim that `pending_writes` is \"a list of `(task_id, channel, value)` tuples\" is supported. The one unsupported claim is the internal construction logic of `tasks_w_writes` beyond what the snippet shows.",
+        "relevance_reason": "The answer directly and completely addresses both parts of the question: what `tasks_w_writes` does (extracts RETURN/ERROR/INTERRUPT writes per task) and how it applies pending writes and subgraph states to tasks for a StateSnapshot (detailing the surrounding get_state logic and the function's role in building the final snapshot).",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "The `tasks_w_writes` function in `libs/langgraph/langgraph/pregel/debug.py` is documented as applying \"writes / subgraph states to tasks to be returned in a StateSnapshot\" [1].",
+            "supported": true,
+            "reason": "The source contains the exact docstring \"Apply writes / subgraph states to tasks to be returned in a StateSnapshot.\" for the `tasks_w_writes` function in the described file, directly substantiating the claim."
+          },
+          {
+            "n": 3,
+            "claim": "**Null-task writes** are applied first via `apply_writes` on channels not tied to a specific real task (`NULL_TASK_ID`) [3][5].",
+            "supported": true,
+            "reason": "Source [3] explicitly shows null writes (filtered by NULL_TASK_ID) being passed to apply_writes on channels, confirming the claim that null-task writes are applied first via apply_writes on channels not tied to a specific real task."
+          },
+          {
+            "n": 5,
+            "claim": "**Null-task writes** are applied first via `apply_writes` on channels not tied to a specific real task (`NULL_TASK_ID`) [3][5].",
+            "supported": true,
+            "reason": "Source [5] explicitly shows `apply_writes` being called on pending writes filtered by `NULL_TASK_ID`, confirming that null-task writes are applied via `apply_writes` on channels tied to `NULL_TASK_ID`."
+          },
+          {
+            "n": 2,
+            "claim": "If any tasks ended up with writes, `apply_writes` is called on the checkpoint/channels for those tasks so the channel state reflects the pending writes [2][4].",
+            "supported": true,
+            "reason": "The source explicitly shows that when tasks have writes, `apply_writes` is called with the checkpoint and channels for those tasks, updating channel state to reflect the pending writes."
+          },
+          {
+            "n": 4,
+            "claim": "If any tasks ended up with writes, `apply_writes` is called on the checkpoint/channels for those tasks so the channel state reflects the pending writes [2][4].",
+            "supported": true,
+            "reason": "The source explicitly shows that when tasks have writes, `apply_writes` is called with the checkpoint and channels so that channel state reflects the pending writes."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q021",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 5,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 16.0,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the provided context snippets. The code walkthrough matches [1] exactly, the mirror description matches [2], the finalization logic matches [5], and the usage in block construction matches [3]. No unsupported claims are present.",
+        "relevance_reason": "The answer directly and completely addresses the question by explaining both the computation logic (handling idx=None vs. per-block cases, delta reconciliation, tail computation) and the caching mechanism (self._reasoning_per_block[idx] = full_r) of _resolve_block_reasoning during streaming.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the code in [1], `_resolve_block_reasoning` handles reasoning text reconciliation for a specific content block index during streaming as follows:",
+            "supported": true,
+            "reason": "Source [1] contains the exact implementation of `_resolve_block_reasoning` showing it accepts a block index (`idx`) and full reasoning string (`full_r`), and handles reasoning text reconciliation during streaming by updating accumulators and per-block state."
+          },
+          {
+            "n": 2,
+            "claim": "This method is described as mirroring `_resolve_block_text` [2] for the reasoning case \u2014 i.e., it prefers per-block delta accumulation and reconciles with an authoritative \"full\" value (e.g., from a finish event) when the provider emits a complete string that differs from what deltas had built up [2].",
+            "supported": true,
+            "reason": "Source [2] contains the exact docstring for `_resolve_block_text` describing that it prefers per-block delta accumulation and reconciles with an authoritative full text when the provider emits a complete string differing from what deltas built up, which is precisely what the claim asserts."
+          },
+          {
+            "n": 5,
+            "claim": "This per-block cache (`self._reasoning_per_block`) is later used when assembling the final reasoning content across all blocks \u2014 if any indexed reasoning was received, the final reasoning text is built by concatenating `self._reasoning_per_block[i]` in sorted index order, rather than relying on the flat `self._reasoning_acc` accumulator, since the per-block sum \"stays correct regardless of finish ordering\" [5].",
+            "supported": true,
+            "reason": "Source [5] explicitly shows that when `self._reasoning_per_block` is non-empty, the final reasoning is built by joining `self._reasoning_per_block[i]` in sorted index order rather than using `self._reasoning_acc`, and the comment states this \"stays correct regardless of finish ordering,\" directly substantiating every part of the claim."
+          },
+          {
+            "n": 3,
+            "claim": "It's also used when constructing the finalized reasoning content block during streaming, where `full_r` is extracted from the block's `\"reasoning\"` field and passed to `_resolve_block_reasoning(idx, full_r)` to get the authoritative accumulated text before finalizing the block [3].",
+            "supported": true,
+            "reason": "The source explicitly shows that in the \"reasoning\" branch, `full_r` is extracted from the block's \"reasoning\" field via `reasoning_block.get(\"reasoning\", \"\")` and then passed to `self._resolve_block_reasoning(idx, full_r)`, directly substantiating the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q022",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 13,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 15.2,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the context. The function's purpose, parameter descriptions, behavior for integer values, dict values, unsupported types, the ValueError message, default values, and the exact function signature are all explicitly present in context [1] and [2].",
+        "relevance_reason": "The answer directly and completely addresses all parts of the question: it explains what `_dict_int_op` does and clearly describes the purpose of all three parameters (`default`, `depth`, and `max_depth`).",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the context [1][2], `_dict_int_op` is a helper function in `langchain_core.utils.usage` that recursively combines two dictionaries by applying an integer operation (e.g., addition) to values at matching keys, supporting nested dictionaries [1].",
+            "supported": true,
+            "reason": "Source [1] shows the `_dict_int_op` function definition with its docstring explicitly stating it recursively combines two dictionaries by applying an integer operation to values at matching keys and supports nested dictionaries."
+          },
+          {
+            "n": 2,
+            "claim": "Based on the context [1][2], `_dict_int_op` is a helper function in `langchain_core.utils.usage` that recursively combines two dictionaries by applying an integer operation (e.g., addition) to values at matching keys, supporting nested dictionaries [1].",
+            "supported": true,
+            "reason": "Source [2] shows the body of `_dict_int_op`, which recursively calls itself for nested dicts and applies an integer operation `op` to matching integer values, directly confirming the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q023",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 2,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 8.7,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every claim in the answer is directly supported by context snippet [1], which shows the exact method signatures, docstrings, and file path referenced in the answer.",
+        "relevance_reason": "The answer directly and completely identifies all three async hook methods for retriever run start, end, and error in LangChain's tracer base class, including their signatures and docstrings.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Code excerpt [1]:",
+            "supported": true,
+            "reason": "The source directly contains the code excerpt shown in the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q024",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 1,
+      "n_markers": 2,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 8.6,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the context. The answer correctly states that get_state calls POST /threads/{thread_id}/state/checkpoint or GET /threads/{thread_id}/state depending on checkpoint presence (context [3]), and that get_state_history calls POST /threads/{thread_id}/history (context [1]). The refusal regarding the stream method is an explicit non-claim and not a hallucination.",
+        "relevance_reason": "The answer does not address the question at all \u2014 it explicitly states the information is unavailable and provides no details about the `RemoteGraph.stream` endpoint logic or optional parameters.",
+        "citation_details": [
+          {
+            "n": 3,
+            "claim": "The context only covers `RemoteGraph.get_state` (which calls `POST /threads/{thread_id}/state/checkpoint` or `GET /threads/{thread_id}/state` depending on whether a checkpoint is specified) [3], and `get_state_history`, which calls `POST /threads/{thread_id}/history` [1].",
+            "supported": true,
+            "reason": "Source [3] explicitly documents that `RemoteGraph.get_state` calls `POST /threads/{thread_id}/state/checkpoint` when a checkpoint is specified or `GET /threads/{thread_id}/state` when no checkpoint is specified, directly substantiating that part of the claim attributed to source [3]."
+          },
+          {
+            "n": 1,
+            "claim": "The context only covers `RemoteGraph.get_state` (which calls `POST /threads/{thread_id}/state/checkpoint` or `GET /threads/{thread_id}/state` depending on whether a checkpoint is specified) [3], and `get_state_history`, which calls `POST /threads/{thread_id}/history` [1].",
+            "supported": true,
+            "reason": "Source [1] explicitly states \"This method calls `POST /threads/{thread_id}/history`\", which directly substantiates the claim that `get_state_history` calls `POST /threads/{thread_id}/history`."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q025",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 3,
+      "n_markers": 5,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 16.1,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the context. The answer correctly notes the `pretty_repr` snippet is cut off [1], accurately quotes the XML-like tool call formatting code from utils.py [3], correctly states that `id` and `name` use `quoteattr` and `args` uses `json.dumps` + `escape`, and correctly observes that no \"error\" field appears anywhere in the provided context. No unsupported claims are made.",
+        "relevance_reason": "The answer partially addresses the question by showing a related tool-call formatting routine (with name, id, and args), but explicitly states it cannot confirm this is used inside pretty_repr specifically, and acknowledges it cannot address the \"error\" field at all \u2014 leaving the question only partially answered.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "but the snippet is cut off before showing how tool calls are rendered within it [1].",
+            "supported": true,
+            "reason": "The source text ends abruptly after showing the print statement, confirming the snippet is cut off before displaying how tool calls are rendered in the output."
+          },
+          {
+            "n": 3,
+            "claim": "```python\nif has_tool_calls:\n    for tc in ai_msg.tool_calls:\n        tc_id = quoteattr(str(tc.get(\"id\") or \"\"))\n        tc_name = quoteattr(str(tc.get(\"name\") or \"\"))\n        tc_args = escape(\n            json.dumps(tc.get(\"args\", {}), ensure_ascii=False)\n        )\n        parts.append(\n            f\"  <tool_call id={tc_id} name={tc_name}>\"\n            f\"{tc_args}</tool_call>\"\n        )\nelif has_function_call:\n    fc = ai_msg.additional_kwargs[\"function_call\"]\n    fc_name = quoteattr(str(fc.get(\"name\") or \"\"))\n    fc_args = escape(str(fc.get(\"arguments\") or \"{}\"))\n    parts.append(\n        f\"  <function_call name={fc_name}>{fc_args}</function_call>\"\n    )\n```\n[3]",
+            "supported": true,
+            "reason": "The source contains the exact same code logic, variable names, and string formatting as the claim, just with different indentation."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q026",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 9,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 13.2,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the provided context snippets. The dispatch logic, field lookup, type determination, description overwriting, and the v2 counterpart are all explicitly shown in the retrieved code.",
+        "relevance_reason": "The answer directly and completely explains how langchain_core creates a Pydantic v1 subset model, detailing the `_create_subset_model_v1` function, its logic for field type handling, optional typing, description overwriting, and how it fits into the broader dispatch mechanism.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the context, `langchain_core` handles this through `_create_subset_model_v1` in `libs/core/langchain_core/utils/pydantic.py` [1].",
+            "supported": true,
+            "reason": "Source [1] is the actual source code of `_create_subset_model_v1` located in `langchain_core`, directly confirming the claim that this function exists and handles subset model creation."
+          },
+          {
+            "n": 4,
+            "claim": "`_create_subset_model_v1` is called when the input model is a Pydantic v1 `BaseModel` (this dispatch happens in `_create_subset_model`, which checks `issubclass(model, BaseModelV1)`) [4].",
+            "supported": true,
+            "reason": "Source [4] shows `_create_subset_model` explicitly calls `_create_subset_model_v1` when `issubclass(model, BaseModelV1)` is true, exactly matching the claim."
+          },
+          {
+            "n": 5,
+            "claim": "This is the v1-specific counterpart to `_create_subset_model_v2`, which does the analogous work for Pydantic v2 models using `model.model_fields` [5].",
+            "supported": true,
+            "reason": "Source [5] is the full definition of `_create_subset_model_v2`, which operates on Pydantic v2 models using `model.model_fields`, directly confirming the claim that it is the v2 counterpart doing analogous work via `model.model_fields`."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q027",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 6,
+      "n_invalid_markers": 1,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 15.0,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the code snippets in context [1] and [3]. The description of the iteration logic, the INTERRUPT/RESUME write types, the pending_interrupts dict, the pending_resumes set, the resumed_interrupt_ids computation, and the RuntimeError condition for multiple pending interrupts all match the source code verbatim.",
+        "relevance_reason": "The answer directly and completely explains how LangGraph determines pending interrupt IDs without corresponding resume values, detailing the exact logic of the `_pending_interrupts` method including the data structures used, the iteration process, and how resumed interrupts are excluded from the pending set.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on the context, LangGraph determines pending interrupts using the `_pending_interrupts` method in `_loop.py` [1].",
+            "supported": true,
+            "reason": "Source [1] contains the exact `_pending_interrupts` method definition in what is contextually `_loop.py`, which returns the set of interrupt IDs that are pending without corresponding resume values, directly substantiating the claim."
+          },
+          {
+            "n": 3,
+            "claim": "This mechanism is also referenced in [3], where resuming with `Command(resume=...)` checks the count of pending interrupts (via `self._pending_interrupts()`) \u2014 if there is more than one pending interrupt, the caller must specify the interrupt id explicitly when resuming, otherwise LangGraph raises a `RuntimeError`:",
+            "supported": true,
+            "reason": "Source [3] explicitly shows that when resuming with Command(resume=...), the code calls self._pending_interrupts() and raises a RuntimeError if the count is greater than 1 and no interrupt id map is specified."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q028",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 4,
+      "relevance": 3,
+      "n_markers": 3,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 13.4,
+      "detail": {
+        "unsupported_claims": [
+          "though the context describes it specifically for context objects, the same principle applies to state schemas as described in the docs"
+        ],
+        "faithfulness_reason": "Nearly all claims are directly supported by the context. The code walkthrough of `_coerce_context` is verbatim from [3], the Pydantic/dataclass output limitation is from [10], and the v2 streaming coercion note is from [8]. The one mild over-generalisation is the assertion that \"the same principle applies to state schemas as described in the docs\" \u2014 the context shows `_coerce_context` applies only to the Runtime/context feature, and the docs do not explicitly state the same function or logic is used for state schemas; this is an inference not directly supported by the context.",
+        "relevance_reason": "The answer partially addresses the question by showing a coercion mechanism (`_coerce_context`) that converts plain dicts to Pydantic/dataclass instances, but explicitly acknowledges this is for context objects rather than node state schemas. The answer does not directly explain how LangGraph converts dict inputs into a Pydantic model or dataclass for a node's state schema specifically, and admits the specific implementation details for that path are not available.",
+        "citation_details": [
+          {
+            "n": 3,
+            "claim": "return cast(ContextT, context)\n```\n[3]",
+            "supported": true,
+            "reason": "Source [3] contains the exact line `return cast(ContextT, context)` as the final return statement of the `_coerce_context` function."
+          },
+          {
+            "n": 10,
+            "claim": "Regarding the broader state-schema behavior in `StateGraph`, the documentation notes an important limitation: this kind of coercion/validation applies going *into* nodes, but the **output of the graph will NOT be an instance of a pydantic model** \u2014 it remains a plain dict, and \"run-time validation only occurs on inputs to the first node in the graph, not on subsequent nodes or outputs\" [10].",
+            "supported": true,
+            "reason": "Source [10] explicitly states both facts in the claim: the graph output will NOT be a pydantic model instance, and run-time validation only occurs on inputs to the first node, not subsequent nodes or outputs."
+          },
+          {
+            "n": 8,
+            "claim": "Coerces to model/dataclass instance,\" suggesting output coercion behavior differs between versions [8], but the context does not provide the specific implementation details for that state-schema coercion path (as opposed to the `_coerce_context` function shown above for the `Runtime`/context feature).",
+            "supported": true,
+            "reason": "Source [8] explicitly contains the table row \"Pydantic/dataclass output | Returns plain dict | Coerces to model/dataclass instance,\" directly substantiating the claim about differing output coercion behavior between v1 and v2."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q029",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 3,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 13.3,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the context: the `__eq__` method comparing only `generations` and `llm_output` (context [1]), the `run` field holding `RunInfo` (context [3]), `__hash__ = None` making instances not hashable (context [1]), and the closing disclaimer about lack of further detail on equality of sub-fields is a non-claim refusal. No unsupported claims are present.",
+        "relevance_reason": "The answer directly and completely addresses both parts of the question: it explains how LangChain determines equality between two LLMResult objects (via generations and llm_output comparison) and explicitly confirms that run metadata is not taken into account.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "LangChain's `LLMResult` defines a custom `__eq__` method that checks equality based only on `generations` and `llm_output`, explicitly ignoring any metadata related to runs (such as the `run` field, which holds `RunInfo`) [1].",
+            "supported": true,
+            "reason": "The source code explicitly defines a custom `__eq__` method for `LLMResult` that compares only `generations` and `llm_output`, with a docstring stating it ignores \"any metadata related to runs,\" directly substantiating the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q030",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 4,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 17.5,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the context: the `on_stream_event` callback signature and its firing behavior come from [2], the `run_id` routing to an existing `ChatModelStream` comes from [1], and the beta status and restriction to `BaseChatModel`/`langgraph.CompiledGraph` come from [5] and [3].",
+        "relevance_reason": "The answer directly and completely identifies `on_stream_event` as the callback method to implement, provides its full signature, and explains its behavior in the context of `stream_events(version=\"v3\")` and `astream_events`.",
+        "citation_details": [
+          {
+            "n": 2,
+            "claim": "To handle each protocol event emitted by `stream_events(version=\"v3\")` (and its async counterpart `astream_events(version=\"v3\")`), implement the **`on_stream_event`** callback method [2].",
+            "supported": true,
+            "reason": "Source [2] explicitly defines the `on_stream_event` callback method and its docstring states it runs on each protocol event from `stream_events(version=\"v3\")` and its async equivalent `astream_events(version=\"v3\")`."
+          },
+          {
+            "n": 1,
+            "claim": "This method fires for every protocol event, and its `run_id` parameter is used to route the event to the correct stream (e.g., an existing `ChatModelStream`) [1].",
+            "supported": true,
+            "reason": "The source explicitly states that protocol events (dicts with an \"event\" key) are routed to an existing ChatModelStream by metadata[\"run_id\"], confirming both that the method handles protocol events and that run_id routes them to the correct stream."
+          },
+          {
+            "n": 5,
+            "claim": "Note that `version=\"v3\"` is only supported on `Runnable` subclasses that implement the typed, content-block-centric streaming protocol \u2014 currently `BaseChatModel` and `langgraph.CompiledGraph` \u2014 and is in beta and may change [5][3].",
+            "supported": true,
+            "reason": "Source [5] explicitly states that v3 is only supported on Runnable subclasses that implement the typed, content-block-centric streaming protocol (currently BaseChatModel and langgraph.CompiledGraph) and that the v3 API is in beta and may change, directly substantiating the claim."
+          },
+          {
+            "n": 3,
+            "claim": "Note that `version=\"v3\"` is only supported on `Runnable` subclasses that implement the typed, content-block-centric streaming protocol \u2014 currently `BaseChatModel` and `langgraph.CompiledGraph` \u2014 and is in beta and may change [5][3].",
+            "supported": true,
+            "reason": "The source's docstring explicitly states that version='v3' is supported only by subclasses implementing the v3 streaming protocol (BaseChatModel and CompiledGraph), matching the claim's assertion about supported subclasses and the typed, content-block-centric protocol."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q031",
+      "type": "code",
+      "route": "both",
+      "faithfulness": 4,
+      "relevance": 5,
+      "n_markers": 18,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 18.3,
+      "detail": {
+        "unsupported_claims": [
+          "first running any handlers with `run_inline=True` synchronously (via `_ahandle_event_for_handler`)"
+        ],
+        "faithfulness_reason": "Nearly all claims are directly supported by the context. However, the claim that inline handlers are run \"synchronously\" is a mild over-generalisation \u2014 context [4] shows they are awaited with `await _ahandle_event_for_handler(...)`, meaning they are still async/awaited, just sequentially before the gather, not truly synchronous.",
+        "relevance_reason": "The answer directly and completely addresses both parts of the question: it explains what `handle_event` does (dispatches named callback events to handlers) and precisely describes what both `ignore_condition_name` and `event_name` parameters control, including code examples.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "The `handle_event` function (and its async counterpart `ahandle_event`) is a **generic event handler for `CallbackManager`** (and `AsyncCallbackManager`, respectively) [1][2].",
+            "supported": true,
+            "reason": "The source's docstring explicitly states \"Generic event handler for `CallbackManager`,\" directly confirming the claim about `handle_event`'s purpose."
+          },
+          {
+            "n": 2,
+            "claim": "The `handle_event` function (and its async counterpart `ahandle_event`) is a **generic event handler for `CallbackManager`** (and `AsyncCallbackManager`, respectively) [1][2].",
+            "supported": true,
+            "reason": "Source [2] contains the `ahandle_event` function with a docstring explicitly stating it is the \"Async generic event handler for `AsyncCallbackManager`\", directly substantiating the claim about the async counterpart."
+          },
+          {
+            "n": 3,
+            "claim": "It is responsible for dispatching a named callback event to a list of handlers, invoking the corresponding method on each handler, collecting any resulting coroutines, and managing errors that occur during handler execution [1][3][5].",
+            "supported": true,
+            "reason": "Source [3] shows code that iterates over handlers, calls the named event method on each, collects resulting coroutines into a list, and handles errors (NotImplementedError) during handler execution, directly substantiating all parts of the claim."
+          },
+          {
+            "n": 5,
+            "claim": "It is responsible for dispatching a named callback event to a list of handlers, invoking the corresponding method on each handler, collecting any resulting coroutines, and managing errors that occur during handler execution [1][3][5].",
+            "supported": true,
+            "reason": "The source snippet shows handle_event iterating over handlers, invoking a named event method, catching and logging errors during handler execution, and managing collected coroutines (coros) in a finally block, which substantiates all parts of the claim."
+          },
+          {
+            "n": 4,
+            "claim": "The async version (`ahandle_event`) similarly iterates through handlers, first running any handlers with `run_inline=True` synchronously (via `_ahandle_event_for_handler`), then running the remaining handlers concurrently using `asyncio.gather` [4].",
+            "supported": true,
+            "reason": "The source code explicitly shows the async function iterating through handlers with run_inline=True first (awaiting _ahandle_event_for_handler synchronously), then using asyncio.gather for the remaining handlers where run_inline is False, exactly matching the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q032",
+      "type": "code",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 4,
+      "n_markers": 4,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.0,
+      "elapsed_s": 10.7,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the context: the supported file formats (.json, .yaml, .yml) and their respective loaders (json.load, yaml.safe_load) are from [2]; the ValueError message for unsupported file types is verbatim from [2]; the load_prompt public API and its signature are from [4]; and the jinja2 ValueError due to security concerns is directly from [1].",
+        "relevance_reason": "The answer directly and completely addresses the question about supported file formats (.json, .yaml, .yml), but also adds extra information about jinja2 template_format restrictions and example usage that wasn't asked for.",
+        "citation_details": [
+          {
+            "n": 2,
+            "claim": "Based on `_load_prompt_from_file` [2], the function supports loading prompt templates from two file formats:",
+            "supported": false,
+            "reason": "The source shows the function supports three file formats (JSON, YAML, and YML), not two as the claim asserts."
+          },
+          {
+            "n": 4,
+            "claim": "# Loads and parses based on file extension (.json, .yaml, or .yml)\nprompt = load_prompt(\"path/to/prompt.yaml\")\n```\n[4]",
+            "supported": false,
+            "reason": "The source defines the load_prompt function signature and its parameters but does not mention anything about loading or parsing based on file extension (.json, .yaml, or .yml)."
+          },
+          {
+            "n": 1,
+            "claim": "Note that within the loaded config, if `template_format` is set to `jinja2`, loading will fail with a `ValueError` since jinja2 templates are no longer supported due to security concerns [1].",
+            "supported": false,
+            "reason": "The source confirms a ValueError is raised for jinja2 templates, but states the reason is arbitrary code execution risk, not \"security concerns\" as a vague label \u2014 more importantly, the claim says \"jinja2 templates are no longer supported due to security concerns,\" which partially matches, but the source specifies the exact reason as arbitrary code execution, not merely generic security concerns. However, this is a reasonable restatement. The real discrepancy is that the claim says \"loading will fail\" which is correct, and \"security concerns\" is a fair restatement of \"arbitrary code execution.\" Actually, re-evaluating: the source fully supports the claim \u2014 jinja2 raises ValueError, and arbitrary code execution is a security concern."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q033",
+      "type": "doc",
+      "route": "code",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 7,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.75,
+      "elapsed_s": 12.7,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the provided context. The attributes of NodeTimeoutError, its non-inheritance from built-in TimeoutError, the constructor logic, and the async-only limitation are all explicitly stated in the context snippets [1], [2], [3], and [4].",
+        "relevance_reason": "The answer directly and completely addresses the question by listing all attributes exposed by NodeTimeoutError (node, timeout, run_timeout, idle_timeout, elapsed, kind) with explanations of each, and includes the constructor signature showing how they are set.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Based on [1], `NodeTimeoutError` exposes the following attributes:",
+            "supported": false,
+            "reason": "The claim references attributes but does not actually list any \u2014 the claim text appears to be incomplete or cut off, so there is no specific attribute list to verify against the source."
+          },
+          {
+            "n": 4,
+            "claim": "- **`timeout`** \u2013 the timeout value that fired (set from either `run_timeout` or `idle_timeout`, depending on `kind`) [1][4]",
+            "supported": true,
+            "reason": "The source explicitly shows that `self.timeout` is assigned `idle_timeout` when `kind='idle'` and `run_timeout` when `kind='run'`, directly confirming the claim."
+          },
+          {
+            "n": 2,
+            "claim": "Note per [2]/[3]: this timeout mechanism (and thus `NodeTimeoutError`) is supported only for async nodes, since sync nodes cannot be safely cancelled in-process.",
+            "supported": true,
+            "reason": "Source [2] explicitly states that timeouts raise a NodeTimeoutError and are \"supported only for async nodes; sync nodes cannot be safely cancelled in-process,\" directly substantiating the claim."
+          },
+          {
+            "n": 3,
+            "claim": "Note per [2]/[3]: this timeout mechanism (and thus `NodeTimeoutError`) is supported only for async nodes, since sync nodes cannot be safely cancelled in-process.",
+            "supported": true,
+            "reason": "Source [3] explicitly states under the `timeout` field: \"If exceeded, `NodeTimeoutError` is raised and the retry policy (if any) decides whether to retry. Supported only for async nodes.\" \u2014 directly confirming both the NodeTimeoutError behavior and the async-only restriction."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q034",
+      "type": "doc",
+      "route": "docs",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 3,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 11.5,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer \u2014 the three \"when to use\" conditions, the code example, and the recommendation to use tool-based discovery (e.g., a `list_agents` tool) for large or dynamic registries \u2014 is directly and explicitly supported by context chunks [1] and [2].",
+        "relevance_reason": "The answer directly and completely addresses the question by specifying the exact conditions under which sub-agents should be enumerated in the system prompt (small fixed set, rarely changing registry, simplest implementation), and even adds helpful contrast with the alternative approach.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Enumerate available sub-agents directly in the main agent's system prompt when [1]:",
+            "supported": true,
+            "reason": "Source [1] explicitly describes \"System prompt enumeration\" as listing available agents directly in the main agent's system prompt, which matches the claim exactly."
+          },
+          {
+            "n": 2,
+            "claim": "If instead you have many agents (>10) or a registry that changes frequently, the docs recommend tool-based discovery (e.g., a `list_agents` tool) rather than hardcoding the list in the system prompt [2].",
+            "supported": true,
+            "reason": "Source [2] explicitly states that tool-based discovery (e.g., a `list_agents` tool) is recommended when you have many agents (> 10), a growing registry, or a frequently changing/dynamic registry, directly substantiating the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q035",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 7,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 15.0,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The checkpointer + thread_id persistence mechanism, terminal verdicts, interrupt behavior, and /rubric set vs /rubric next distinctions all map precisely to context chunks [1] and [2].",
+        "relevance_reason": "The answer directly and completely addresses the question by explaining exactly how to make a rubric persist across multiple agent.invoke() calls \u2014 using a checkpointer and the same thread_id \u2014 along with relevant supporting details about how the persistence works.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "As long as you keep reusing that `thread_id`, the same `rubric` you originally passed will carry over to future `invoke()` or `stream_events()` calls, until you explicitly pass a new rubric [1].",
+            "supported": true,
+            "reason": "The source explicitly states that with the same thread_id, \"the same rubric persists across future invoke() or stream_events() calls until you pass a new one in,\" which directly substantiates the claim."
+          },
+          {
+            "n": 2,
+            "claim": "If you instead want rubric criteria that apply persistently across every turn in an interactive setting (as opposed to checkpointed `invoke()` calls), the related concept is using `/rubric set <criteria>` for \"persistent criteria for every turn\" [2], as opposed to `/rubric next <criteria>` which is a one-turn quality gate [2].",
+            "supported": true,
+            "reason": "Source [2] explicitly states that `/rubric set <criteria>` is for \"Persistent criteria for every turn\" and `/rubric next <criteria>` is for a \"One-turn quality gate,\" directly substantiating both parts of the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q036",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 7,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.75,
+      "elapsed_s": 13.3,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The basic usage example and default configurability of 'model' and 'model_provider' are from [5], the default values/prefix example is from [7], and the descriptions of `configurable_fields` and `configurable_alternatives` are from [1] and [2] respectively.",
+        "relevance_reason": "The answer directly and completely addresses the question by showing exactly how to build a runtime-configurable chat model using `init_chat_model` and how to switch models per call via the `config` dict with the `configurable` key.",
+        "citation_details": [
+          {
+            "n": 5,
+            "claim": "To build a runtime-configurable chat model in LangChain, use `init_chat_model` with `configurable_fields` (or leave the model unspecified, which makes it configurable by default) [5].",
+            "supported": true,
+            "reason": "Source [5] explicitly states that a runtime-configurable model is created using `init_chat_model` with `configurable_fields`, and that leaving the model unspecified makes 'model' and 'model_provider' configurable by default."
+          },
+          {
+            "n": 7,
+            "claim": "You can also specify a default model, choose exactly which parameters are configurable, and add a `config_prefix` (useful when a chain has multiple configurable models) [7]:",
+            "supported": true,
+            "reason": "Source [7] explicitly demonstrates specifying a default model (\"gpt-5.4-mini\"), choosing configurable fields via `configurable_fields`, and adding a `config_prefix` with the note \"Useful when you have a chain with multiple models.\""
+          },
+          {
+            "n": 1,
+            "claim": "This underlying capability comes from `BaseChatModel`'s `configurable_fields` method, which lets you specify init args of the model that can be configured at runtime via the `RunnableConfig`, and the related `configurable_alternatives` method for swapping in alternative models at runtime [1][2].",
+            "supported": false,
+            "reason": "Source [1] confirms that `configurable_fields` lets you specify init args configurable at runtime via `RunnableConfig`, but it does not mention `configurable_alternatives` or its behavior of swapping in alternative models at runtime, which is also part of the claim."
+          },
+          {
+            "n": 2,
+            "claim": "This underlying capability comes from `BaseChatModel`'s `configurable_fields` method, which lets you specify init args of the model that can be configured at runtime via the `RunnableConfig`, and the related `configurable_alternatives` method for swapping in alternative models at runtime [1][2].",
+            "supported": true,
+            "reason": "Source [2] explicitly defines both `configurable_fields` (specifying init args configurable at runtime via RunnableConfig) and `configurable_alternatives` (swapping in alternative models at runtime via RunnableConfig), which directly substantiates all specific facts in the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q037",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 5,
+      "relevance": 5,
+      "n_markers": 8,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 1.0,
+      "elapsed_s": 15.0,
+      "detail": {
+        "unsupported_claims": [],
+        "faithfulness_reason": "Every factual claim in the answer is directly supported by the retrieved context. The Python code is reproduced verbatim from chunks [1] and [2], the four key steps accurately summarize those chunks, the TypeScript/JavaScript note matches chunk [4], and the general reference to runtime model selection matches chunk [3].",
+        "relevance_reason": "The answer directly and completely addresses the question by providing a concrete code example showing how to use wrap_model_call to read cost tier from runtime context and select a different model, along with clear step-by-step explanation of the key components involved.",
+        "citation_details": [
+          {
+            "n": 1,
+            "claim": "Yes \u2014 you can use a `@wrap_model_call` middleware that reads `request.runtime.context` and overrides the model based on the cost tier (and other context fields like environment) [1][2].",
+            "supported": true,
+            "reason": "Source [1] explicitly shows a `wrap_model_call` middleware that reads `request.runtime.context` fields including `cost_tier` and `environment` to select a model, directly substantiating the claim."
+          },
+          {
+            "n": 2,
+            "claim": "Yes \u2014 you can use a `@wrap_model_call` middleware that reads `request.runtime.context` and overrides the model based on the cost tier (and other context fields like environment) [1][2].",
+            "supported": true,
+            "reason": "Source [2] shows exactly a `@wrap_model_call` middleware that reads `request.runtime.context.cost_tier` and `request.runtime.context.environment` and overrides the model accordingly, directly substantiating the claim."
+          },
+          {
+            "n": 4,
+            "claim": "For JavaScript/TypeScript, the equivalent pattern uses `createMiddleware` with a `contextSchema` and reads `request.runtime.context.costTier` inside `wrapModelCall` [4].",
+            "supported": true,
+            "reason": "Source [4] explicitly shows `createMiddleware` used with a `contextSchema` (containing `costTier`), and reads `request.runtime.context.costTier` inside the `wrapModelCall` function, directly substantiating the claim."
+          },
+          {
+            "n": 3,
+            "claim": "This same pattern (passing a runtime-selected model through context and swapping it in a `wrap_model_call` middleware) is also referenced more generally for runtime model selection use cases [3].",
+            "supported": true,
+            "reason": "Source [3] explicitly describes passing a runtime-selected model through context and using a `wrap_model_call` middleware to swap the model, directly substantiating the claim."
+          }
+        ]
+      }
+    },
+    {
+      "qid": "q038",
+      "type": "doc",
+      "route": "both",
+      "faithfulness": 4,
+      "relevance": 5,
+      "n_markers": 10,
+      "n_invalid_markers": 0,
+      "has_citations": true,
+      "citation_precision": 0.714,
+      "elapsed_s": 15.0,
+      "detail": {
+        "unsupported_claims": [
+          "[\"the callback manager and run config would not automatically flow into the new task, breaking callback propagation and streaming\" \u2014 the context states callbacks are not automatically propagated and streaming is affected, but does not explicitly say the config/callbacks \"would not flow into the new task\" as a mechanism; this is a mild inferential over-generalisation beyond what is stated verbatim in the context.]"
+        ],
+        "faithfulness_reason": "Nearly all claims are directly supported by the context. However, the answer states that the callback manager warning applies to \"python 3.10\" specifically (citing [1]), while the broader claim in the answer's body says \"Python versions before 3.11\" \u2014 the context [7] says \"< 3.11\" broadly, and [1] specifically mentions only \"python 3.10\". The answer also says `get_config()` cannot be used in async nodes on Python < 3.11, which is supported by [2]. The claim that breaking callback propagation affects \"streaming\" is a mild inference not explicitly stated in [7], though it is implied by [7] and [8]. Overall, all claims are at least mildly supported, with no invented APIs or contradictions.",
+        "relevance_reason": "The answer directly and completely explains why config must be passed explicitly in async model calls on Python < 3.11 \u2014 because asyncio.create_task() lacked context parameter support before 3.11, preventing automatic propagation of RunnableConfig and callbacks across async task boundaries.",
+        "citation_details": [
+          {
+            "n": 7,
+            "claim": "On Python versions before 3.11, `asyncio.create_task()` does not support the `context` parameter, which LangGraph/LangChain rely on to automatically propagate context variables (like the `RunnableConfig` and its callbacks) across async task boundaries [7].",
+            "supported": true,
+            "reason": "Source [7] explicitly states that in Python versions < 3.11, asyncio tasks do not support the `context` parameter, and that this limits LangGraph's ability to automatically propagate context, including RunnableConfig and its callbacks across async task boundaries."
+          },
+          {
+            "n": 2,
+            "claim": "Without that support, when an async node calls an LLM's `ainvoke()`, the callback manager and run config would not automatically flow into the new task, breaking callback propagation and streaming [7][2].",
+            "supported": false,
+            "reason": "Source [2] shows a `get_config()` utility and a Python version check, but does not contain any information about async nodes calling `ainvoke()`, callback managers, run configs failing to flow into new tasks, or callback propagation and streaming breaking."
+          },
+          {
+            "n": 6,
+            "claim": "```python\nasync def call_model(state, config):\n    topic = state[\"topic\"]\n    print(\"Writing joke...\")\n    # Note: Passing the config through explicitly is required for python < 3.11\n    # Since context var support wasn't added before then: \n    # https://docs.python.org/3/library/asyncio-task.html#creating-tasks\n    # The config is passed through explicitly to ensure the context vars are propagated correctly\n    joke_response = await joke_model.ainvoke(\n          [{\"role\": \"user\", \"content\": f\"Write a joke about {topic}\"}],\n          config,\n    )\n    print(\"\\n\\nWriting poem...\")\n    poem_response = await poem_model.ainvoke(\n          [{\"role\": \"user\", \"content\": f\"Write a short poem about {topic}\"}],\n          config,\n    )\n    return {\"joke\": joke_response.content, \"poem\": poem_response.content}\n```\n[6]",
+            "supported": true,
+            "reason": "The source contains the same function with identical logic, parameters, method calls, and return values; the only difference is one extra comment line in the source, which does not affect the substance of the claim."
+          },
+          {
+            "n": 1,
+            "claim": "This is due to a limitation in asyncio for python 3.10 that prevents LangChain from automatically propagating the config object on the user's behalf.\" [1]",
+            "supported": true,
+            "reason": "The source contains the exact statement that a limitation in asyncio for Python 3.10 prevents LangChain from automatically propagating the config object on the user's behalf."
+          },
+          {
+            "n": 5,
+            "claim": "Additionally, this same limitation means you cannot rely on `get_stream_writer()` or `get_config()` in async nodes/tools on Python < 3.11, since those also depend on contextvar propagation that isn't guaranteed without Python 3.11+ task context support [2][5][9].",
+            "supported": true,
+            "reason": "Source [5] explicitly warns that get_stream_writer() won't work in async contexts on Python < 3.11 due to contextvar propagation limitations, directly substantiating the claim about that function's dependency on Python 3.11+ task context support."
+          },
+          {
+            "n": 9,
+            "claim": "Additionally, this same limitation means you cannot rely on `get_stream_writer()` or `get_config()` in async nodes/tools on Python < 3.11, since those also depend on contextvar propagation that isn't guaranteed without Python 3.11+ task context support [2][5][9].",
+            "supported": false,
+            "reason": "Source [9] only confirms that `get_stream_writer()` does not work in async code on Python < 3.11, but says nothing about `get_config()` sharing the same limitation due to contextvar propagation."
+          },
+          {
+            "n": 8,
+            "claim": "The `messages` streaming mode documentation likewise warns that manual config passing is required for async code on Python < 3.11 to enable proper streaming [8].",
+            "supported": true,
+            "reason": "Source [8] contains an explicit warning under the `messages` streaming mode section stating that manual config passing is required for async code on Python < 3.11 to enable proper streaming."
+          }
+        ]
+      }
+    }
+  ]
+}
