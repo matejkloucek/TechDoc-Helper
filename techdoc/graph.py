@@ -310,6 +310,54 @@ async def astream_answer(question: str):
             yield chunk.text
 
 
+async def astream_events(question: str):
+    """Stream tokens AND the retrieved sources from ONE graph run.
+
+    `astream_answer` yields only text, so a UI that also wants to show citations
+    would have to run the graph a second time -- paying for retrieval and synthesis
+    twice to display something the first run already computed.
+
+    Passing a LIST of stream modes fixes that: LangGraph then yields
+    `(mode, payload)` tuples, where the payload shape depends on the mode --
+        "messages" -> (message_chunk, metadata)
+        "values"   -> the full state dict after each superstep
+    Verified on langgraph 1.2.9: `docs` is populated in the values event BEFORE
+    synthesize finishes streaming, so the sources are known by the time the answer
+    is complete.
+
+    Yields ("token", str) and ("sources", list[Document]) -- a tagged union, so the
+    caller can render tokens live and stash the sources for afterwards.
+    """
+    initial_state = GraphState(
+        question=question,
+        route="",
+        docs=[],
+        answer="",
+    )
+
+    sources_sent = False
+
+    async for mode, payload in get_graph().astream(
+        initial_state,
+        stream_mode=["messages", "values"],
+    ):
+        if mode == "messages":
+            chunk, meta = payload
+            # Same filter as astream_answer, and just as load-bearing: the router
+            # emits ~39 chunks of structured-output JSON on its way to a RouteDecision.
+            if meta.get("langgraph_node") == "synthesize" and chunk.text:
+                yield "token", chunk.text
+        elif mode == "values":
+            # One values event per superstep, so `docs` is empty for the first two
+            # (START -> route) and identical for the rest. Emit the first non-empty
+            # snapshot only -- re-yielding would make the UI append the same sources
+            # once per remaining superstep.
+            docs = payload.get("docs")
+            if docs and not sources_sent:
+                sources_sent = True
+                yield "sources", docs
+
+
 if __name__ == "__main__":
     for q in [
         "What is a checkpointer in LangGraph?",                    # expect docs
